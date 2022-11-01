@@ -1,3 +1,3 @@
 # GameEngine
 
-Engine for CS 541
+Engine for CS 529
