@@ -6,6 +6,8 @@
 #include "Meshes/TriangleMesh.h"
 #include "Meshes/QuadMesh.h"
 #include "Meshes/CubeMesh.h"
+#include "Meshes/CircleMesh.h"
+#include "Meshes/CylinderMesh.h"
 
 #include "Material.h"
 #include "../Shader.h"
@@ -36,6 +38,9 @@ public:
 		glm::vec2 fourthTex = glm::vec2(0.0f, 1.0f));
 
 	void SetCubeGeometry(float sideLenght = 1.0f);
+
+	void SetCircleGeometry(int resolution);
+	void SetCylinderGeometry(int resolution);
 
 	GLsizei PointCount() { return geometry->GetPointCount(); }
 	const GLuint GetVAO() { return geometry->GetVAO(); }

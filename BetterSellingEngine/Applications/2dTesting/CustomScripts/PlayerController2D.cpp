@@ -1,5 +1,55 @@
 #include "PlayerController2D.h"
 
+void PlayerController2D::TransformSet(Transform* objT) {
+	glm::vec3 oldPos = objT->GetPosition();
+	if (Input::KeyDown(GLFW_KEY_W) == Input::State::Down) {
+		glm::vec3 delta = glm::vec3(0, 0.02f, 0);
+		oldPos = objT->SetPosition(oldPos + delta);
+	}
+	if (Input::KeyDown(GLFW_KEY_S) == Input::State::Down) {
+		glm::vec3 delta = glm::vec3(0, 0.02f, 0);
+		oldPos = objT->SetPosition(oldPos - delta);
+	}
+	if (Input::KeyDown(GLFW_KEY_A) == Input::State::Down) {
+		glm::vec3 delta = glm::vec3(0.02f, 0, 0);
+		oldPos = objT->SetPosition(oldPos - delta);
+	}
+	if (Input::KeyDown(GLFW_KEY_D) == Input::State::Down) {
+		glm::vec3 delta = glm::vec3(0.02f, 0, 0);
+		oldPos = objT->SetPosition(oldPos + delta);
+	}
+
+}
+
+void PlayerController2D::BodySet(PhysicsBody* objB) {
+	bool moving = false;
+	glm::vec3 newForce = glm::vec3();
+	if (Input::KeyDown(GLFW_KEY_W) == Input::State::Down) {
+		newForce += glm::vec3(0, 1, 0);
+	}
+	if (Input::KeyDown(GLFW_KEY_S) == Input::State::Down) {
+		newForce -= glm::vec3(0, 1, 0);
+	}
+	if (Input::KeyDown(GLFW_KEY_A) == Input::State::Down) {
+		newForce -= glm::vec3(1, 0, 0);
+	}
+	if (Input::KeyDown(GLFW_KEY_D) == Input::State::Down) {
+		newForce += glm::vec3(1, 0, 0);
+	}
+
+	// sim drag
+	if (!moving) {
+
+	}
+
+	if (glm::length2(objB->GetVelocity()) > MAX_SPEED) {
+		objB->SetVelocity(MAX_SPEED * glm::normalize(objB->GetVelocity()));
+	}
+	else {
+		objB->AddForce(ACC_SPEED * deltaTime * newForce );
+	}
+
+}
 void PlayerController2D::PlayerControls() {
 	
 
@@ -7,23 +57,19 @@ void PlayerController2D::PlayerControls() {
 		BetterSellingEngine::GetInstance()->End();
 	}
 
-	glm::vec3 oldPos = mainCamera->transform.GetPosition();
-	if (Input::KeyDown(GLFW_KEY_W) == Input::State::Down) {
-		glm::vec3 delta = glm::vec3(0, 0.02f, 0);
-		oldPos = mainCamera->transform.SetPosition(oldPos + delta);
+
+	if (currentObject == NULL) return;
+
+	Transform* objT = currentObject->GetComponent<Transform>();
+	PhysicsBody* objB = currentObject->GetComponent<PhysicsBody>();
+	if (objB) {
+		//BodySet(objB);
+		TransformSet(objT);
 	}
-	if (Input::KeyDown(GLFW_KEY_S) == Input::State::Down) {
-		glm::vec3 delta = glm::vec3(0, 0.02f, 0);
-		oldPos = mainCamera->transform.SetPosition(oldPos - delta);
+	else {
+		TransformSet(objT);
 	}
-	if (Input::KeyDown(GLFW_KEY_A) == Input::State::Down) {
-		glm::vec3 delta = glm::vec3(0.02f, 0, 0);
-		oldPos = mainCamera->transform.SetPosition(oldPos - delta);
-	}
-	if (Input::KeyDown(GLFW_KEY_D) == Input::State::Down) {
-		glm::vec3 delta = glm::vec3(0.02f, 0, 0);
-		oldPos = mainCamera->transform.SetPosition(oldPos + delta);
-	}
+	
 
 	if (Input::KeyDown(GLFW_KEY_LEFT_SHIFT) == Input::State::Enter) {
 		bool oldVal = BetterSellingEngine::GetInstance()->GetCollisionInteraction("Sad Layer", "Segy Layer");
@@ -104,10 +150,10 @@ void PlayerController2D::MoveObjectFollow() {
 	if (currentObject == NULL) return;
 
 
-	glm::vec3 camPos = mainCamera->transform.GetPosition();
-	currentObject->GetComponent<Transform>()->SetWorldPosition(glm::vec3(camPos.x,camPos.y,0));
+	//glm::vec3 camPos = mainCamera->transform.GetPosition();
+	//currentObject->GetComponent<Transform>()->SetWorldPosition(glm::vec3(camPos.x,camPos.y,0));
 
-
+	mainCamera->transform.SetPosition(currentObject->GetComponent<Transform>()->GetPosition());
 
 	Transform* transform = currentObject->transform;
 	if (Input::KeyDown(GLFW_KEY_LEFT) == Input::State::Down) {
@@ -153,6 +199,7 @@ void PlayerController2D::SetColor() {
 
 bool first = true;
 void PlayerController2D::Update(float dt) {
+	deltaTime = dt;
 	PlayerControls();
 
 

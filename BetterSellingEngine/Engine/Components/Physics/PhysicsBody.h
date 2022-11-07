@@ -6,6 +6,7 @@
 #include "OBB.h"
 #include "OBC2AA.h"
 #include "OBC.h"
+#include "Circle.h"
 
 #include "../../GameObject.h"
 class PhysicsBody : public Component {
@@ -19,7 +20,7 @@ public:
 
 	void AddForce(glm::vec3 F) { force += F; }
 	void SetVelocity(glm::vec3 newV) { velocity = newV; }
-	glm::vec3 GetVelocity(glm::vec3 newV) { return velocity; }
+	glm::vec3 GetVelocity() { return velocity; }
 
 	void AddAngularForce(float F) { angularForce += glm::vec3(0,0,F); }
 	void SetAngularVelocity(glm::vec3 newAV) { angularVelocity = newAV; }
@@ -34,6 +35,8 @@ public:
 	void SetOBB();
 	void SetOBC2AA();
 	void SetOBC();
+
+	void SetCircle();
 
 private:
 	Shape* shape = nullptr;

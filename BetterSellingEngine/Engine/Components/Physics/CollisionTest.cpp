@@ -9,28 +9,45 @@ bool CollisionTest::Test(PhysicsBody* body1, PhysicsBody* body2, glm::vec3* norm
 	}
 
 	
-
+	// body 1 is OBB 
 	if (body1->GetShapeType() == Shape::ShapeType::OBB && body2->GetShapeType() == Shape::ShapeType::OBB) {
 		return OBB_OBB_Test(body1, body2, normal, depth);
-	}
-	if (body1->GetShapeType() == Shape::ShapeType::OBC2AA && body2->GetShapeType() == Shape::ShapeType::OBC2AA) {
-		return OBC2AA_OBC2AA_Test(body1, body2);
-	}
-	if (body1->GetShapeType() == Shape::ShapeType::OBC && body2->GetShapeType() == Shape::ShapeType::OBC) {
-		return OBC_OBC_Test(body1, body2);
-	}
-	if (body1->GetShapeType() == Shape::ShapeType::OBC && body2->GetShapeType() == Shape::ShapeType::OBB) {
-		return OBC_OBB_Test(body1, body2);
 	}
 	if (body1->GetShapeType() == Shape::ShapeType::OBB && body2->GetShapeType() == Shape::ShapeType::OBC) {
 		return OBC_OBB_Test(body2, body1);
 	}
-	if (body1->GetShapeType() == Shape::ShapeType::OBC2AA && body2->GetShapeType() == Shape::ShapeType::OBB) {
-		return OBC_OBB_Test(body1, body2);
-	}
 	if (body1->GetShapeType() == Shape::ShapeType::OBB && body2->GetShapeType() == Shape::ShapeType::OBC2AA) {
 		return OBC_OBB_Test(body2, body1);
 	}
+	if (body1->GetShapeType() == Shape::ShapeType::OBB && body2->GetShapeType() == Shape::ShapeType::Circle) {
+		return OBB_Circle_Test(body1, body2);
+	}
+
+	// body 1 is OBC 
+	if (body1->GetShapeType() == Shape::ShapeType::OBC && body2->GetShapeType() == Shape::ShapeType::OBB) {
+		return OBC_OBB_Test(body1, body2);
+	}
+	if (body1->GetShapeType() == Shape::ShapeType::OBC && body2->GetShapeType() == Shape::ShapeType::OBC) {
+		return OBC_OBC_Test(body1, body2);
+	}
+	if (body1->GetShapeType() == Shape::ShapeType::OBC && body2->GetShapeType() == Shape::ShapeType::OBC2AA) {
+		return OBC_OBC_Test(body1, body2);
+	}
+
+
+	// body 1 is OBC2AA 
+	if (body1->GetShapeType() == Shape::ShapeType::OBC2AA && body2->GetShapeType() == Shape::ShapeType::OBB) {
+		return OBC_OBB_Test(body1, body2);
+	}
+	if (body1->GetShapeType() == Shape::ShapeType::OBC2AA && body2->GetShapeType() == Shape::ShapeType::OBC) {
+		return OBC_OBC_Test(body1, body2);
+	}
+	if (body1->GetShapeType() == Shape::ShapeType::OBC2AA && body2->GetShapeType() == Shape::ShapeType::OBC2AA) {
+		return OBC2AA_OBC2AA_Test(body1, body2);
+	}
+
+	
+	
 
 	return false;
 }
@@ -114,11 +131,11 @@ bool CollisionTest::OBB_OBB_Test(PhysicsBody* body1, PhysicsBody* body2, glm::ve
 	Transform* t1 = body1->gameObject->GetComponent<Transform>();
 	Transform* t2 = body2->gameObject->GetComponent<Transform>();
 
-	glm::vec2 sideLenght1 = 0.5f * t1->GetWorldScale();
-	glm::vec2 sideLenght2 = 0.5f * t2->GetWorldScale();
+	glm::vec2 sideLength1 = 0.5f * t1->GetWorldScale();
+	glm::vec2 sideLength2 = 0.5f * t2->GetWorldScale();
 
-	Corners2D corners1(t1->GetWorldPosition(), t1->GetRotationMatrix(), sideLenght1);
-	Corners2D corners2(t2->GetWorldPosition(), t2->GetRotationMatrix(), sideLenght2);
+	Corners2D corners1(t1->GetWorldPosition(), t1->GetRotationMatrix(), sideLength1);
+	Corners2D corners2(t2->GetWorldPosition(), t2->GetRotationMatrix(), sideLength2);
 
 	glm::vec3 a1x = glm::normalize(corners1.TopLeft - corners1.TopRight);
 	glm::vec3 a1y = glm::normalize(corners1.TopLeft - corners1.BottomLeft);
@@ -361,4 +378,46 @@ CollisionTest::Corners3D::Corners3D(glm::vec3 center, glm::mat4 rotationMatrix, 
 	rotatedOffset = rotationMatrix * glm::vec4(offset.x, offset.y, -offset.z, 1);
 	TopRightBack = center + rotatedOffset;
 	BottomLeftFront = center - rotatedOffset;
+}
+
+
+
+bool CollisionTest::OBB_Circle_Test(PhysicsBody* body1, PhysicsBody* body2) {
+
+	//TODO: this
+
+	return false;
+	Transform* t1 = body1->gameObject->GetComponent<Transform>();
+	Transform* t2 = body2->gameObject->GetComponent<Transform>();
+
+	glm::vec2 sideLength1 = 0.5f * t1->GetWorldScale();
+	//glm::vec2 sideLength2 = 0.5f * t2->GetWorldScale();
+	float circleRadius = 0.5f * t2->GetWorldScale().x;
+
+	Corners2D corners1(t1->GetWorldPosition(), t1->GetRotationMatrix(), sideLength1);
+
+	glm::vec3 a1x = glm::normalize(corners1.TopLeft - corners1.TopRight);
+	glm::vec3 a1y = glm::normalize(corners1.TopLeft - corners1.BottomLeft);
+
+	glm::vec3 axes[] = { a1x, a1y };
+
+	for (glm::vec3 axis : axes) {
+		float min1 = 0.0;
+		float max1 = 0.0;
+		GetMinMax(corners1, axis, min1, max1);
+
+		float min2 = 0.0;
+		float max2 = 0.0;
+		max2 = glm::dot(t2->GetPosition() + circleRadius, axis);
+		min2 = glm::dot(t2->GetPosition() - circleRadius, axis);
+
+		max2 = glm::dot(t2->GetPosition() + circleRadius * axis, axis);
+		min2 = glm::dot(t2->GetPosition() - circleRadius * axis, axis);
+
+		//GetMinMax(corners2, axis, min2, max2);
+		if (max1 <= min2 || max2 <= min1)
+			return false;
+	}
+
+	return true;
 }

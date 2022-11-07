@@ -67,6 +67,9 @@ void ThreeDTesting::SpawnEntities() {
 	SpawnGround();
 
 	LikeStarsInTheSky();
+
+	SpawnCylinderThing();
+
 	GameObject* sadGO = SillyThings::SpawnSadFriend(glm::vec3());
 
 	sadGO->AddComponent<WhenSadCollides3D>();
@@ -113,7 +116,7 @@ void ThreeDTesting::SpawnFriendCube(glm::vec3 pos) {
 
 	cubeFriend->AddComponent<PhysicsBody>();
 	PhysicsBody* cubeB = cubeFriend->GetComponent<PhysicsBody>();
-	cubeB->SetOBC();
+	cubeB->SetOBC2AA();
 
 	bse->AddGameObject(cubeFriend);
 }
@@ -131,4 +134,23 @@ void ThreeDTesting::LikeStarsInTheSky() {
 
 		SpawnFriendCube(glm::vec3(randomX, randomY, randomZ));
 	}
+}
+
+
+void ThreeDTesting::SpawnCylinderThing() {
+
+	GameObject* cylinderThing = new GameObject("Thing==Friend");
+	cylinderThing->AddComponent<Sprite>();
+
+	Sprite* thingSprite = cylinderThing->GetComponent<Sprite>();
+	thingSprite->SetCylinderGeometry(30);
+	thingSprite->SetColor(glm::vec3(0.5, 1, 0.6));
+	//thingSprite->SetMaterial("./assets/47.png");
+
+	Transform* cubeyT = cylinderThing->GetComponent<Transform>();
+
+	cubeyT->SetPosition(glm::vec3(3,3,0));
+
+
+	bse->AddGameObject(cylinderThing);
 }

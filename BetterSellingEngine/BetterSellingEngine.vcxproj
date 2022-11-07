@@ -146,6 +146,8 @@
     <ClCompile Include="Engine\Components\Physics\PhysicsBody.cpp" />
     <ClCompile Include="Engine\Components\Physics\Shape.cpp" />
     <ClCompile Include="Engine\Components\Script.cpp" />
+    <ClCompile Include="Engine\Components\Sprite\Meshes\CircleMesh.cpp" />
+    <ClCompile Include="Engine\Components\Sprite\Meshes\CylinderMesh.cpp" />
     <ClCompile Include="Engine\Components\Sprite\Meshes\QuadMesh.cpp" />
     <ClCompile Include="Engine\Components\Sprite\Meshes\CubeMesh.cpp" />
     <ClCompile Include="Engine\Systems\Events\Event.cpp" />
@@ -178,6 +180,7 @@
     <ClInclude Include="Engine\BetterSellingEngine.h" />
     <ClInclude Include="Engine\Camera.h" />
     <ClInclude Include="Engine\Components\Component.h" />
+    <ClInclude Include="Engine\Components\Physics\Circle.h" />
     <ClInclude Include="Engine\Components\Physics\CollisionTest.h" />
     <ClInclude Include="Engine\Components\Physics\Contact.h" />
     <ClInclude Include="Engine\Components\Physics\OBB.h" />
@@ -185,6 +188,8 @@
     <ClInclude Include="Engine\Components\Physics\OBC2AA.h" />
     <ClInclude Include="Engine\Components\Physics\PhysicsBody.h" />
     <ClInclude Include="Engine\Components\Physics\Shape.h" />
+    <ClInclude Include="Engine\Components\Sprite\Meshes\CircleMesh.h" />
+    <ClInclude Include="Engine\Components\Sprite\Meshes\CylinderMesh.h" />
     <ClInclude Include="Engine\Components\Sprite\Meshes\QuadMesh.h" />
     <ClInclude Include="Engine\Components\Sprite\Meshes\CubeMesh.h" />
     <ClInclude Include="Engine\Systems\Events\Event.h" />

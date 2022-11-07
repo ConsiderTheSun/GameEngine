@@ -15,7 +15,7 @@ void WhenSadCollides2D::OnCollisionEnter(CollisionEvent* e) {
 
 	//GameObject::Destroy(collisionObject);
 
-	glm::vec3 move = 2 * e->depth * e->normal;
+	glm::vec3 move = e->depth * e->normal;
 	Transform* t = e->collisionObject->GetComponent<Transform>();
 	t->SetPosition(t->GetPosition() + move);
 
@@ -29,7 +29,7 @@ void WhenSadCollides2D::OnCollision(CollisionEvent* e) {
 	collisionT->SetRotation(collisionT->GetRotation() - glm::vec3(0, 0, 0.002f));
 	*/
 
-	glm::vec3 move = 4 * e->depth * e->normal;
+	glm::vec3 move = e->depth * e->normal;
 	Transform* t = e->collisionObject->GetComponent<Transform>();
 	t->SetPosition(t->GetPosition() + move);
 	

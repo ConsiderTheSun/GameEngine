@@ -47,3 +47,7 @@ void PhysicsBody::SetOBC2AA() {
 void PhysicsBody::SetOBC() {
 	shape = new OBC();
 }
+
+void PhysicsBody::SetCircle() {
+	shape = new Circle();
+}

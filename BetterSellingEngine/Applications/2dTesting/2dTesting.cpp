@@ -242,6 +242,30 @@ void TwoDTesting::GarfTris() {
 	//bse->RemoveGameObject(hiGO2);
 	//hiGO5->SetParent();
 }
+
+void TwoDTesting::CircleBuddy() {
+	GameObject* lemonGO = new GameObject("LemonOfPink");
+	std::cout << "Spawning " << lemonGO->GetName() << std::endl;
+
+	lemonGO->SetLayer("What Layer");
+
+	lemonGO->AddComponent<Sprite>();
+
+	Sprite* lemonSprite = lemonGO->GetComponent<Sprite>();
+	lemonSprite->SetCircleGeometry(40);
+	lemonSprite->SetColor(glm::vec3(1, 1, 1));
+	lemonSprite->SetMaterial("./assets/lemonOfPink.png");
+
+	Transform* lemonT = lemonGO->GetComponent<Transform>();
+	lemonT->SetPosition(glm::vec3(1, 1.75, 0));
+	lemonT->SetScale(glm::vec3(0.5, 0.5, 1));
+
+	lemonGO->AddComponent<PhysicsBody>();
+	PhysicsBody* lemonB = lemonGO->GetComponent<PhysicsBody>();
+	lemonB->SetCircle();
+
+	bse->AddGameObject(lemonGO);
+}
 void TwoDTesting::SpawnEntities() {
 	// random solid color triangle, just to show I can
 	GameObject* boringSolid = new GameObject("solid");
@@ -264,6 +288,7 @@ void TwoDTesting::SpawnEntities() {
 	SegyFriends();
 	GlitchyFriends();
 	
+	CircleBuddy();
 	// sad
 
 	GameObject* sadGO = new GameObject("Sad");

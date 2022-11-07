@@ -21,5 +21,7 @@ private:
 
 	void SpawnFriendCube(glm::vec3 pos);
 	void LikeStarsInTheSky();
+
+	void SpawnCylinderThing();
 };
 

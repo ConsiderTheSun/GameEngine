@@ -20,6 +20,7 @@ private:
 	void SegyFriends();
 	void GlitchyFriends();
 	void GarfTris();
+	void CircleBuddy();
 	void SpawnEntities();
 
 };

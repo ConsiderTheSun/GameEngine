@@ -32,6 +32,13 @@ void Sprite::SetCubeGeometry(float sideLenght) {
 	geometry = new CubeMesh(sideLenght);
 }
 
+void Sprite::SetCircleGeometry(int resolution) {
+	geometry = new CircleMesh(resolution);
+}
+
+void Sprite::SetCylinderGeometry(int resolution) {
+	geometry = new CylinderMesh(resolution);
+}
 
 bool Sprite::SetMaterial(const char* texPath, bool noAlpha) { 
 	// creates the new sprite and checks if it was created properly
