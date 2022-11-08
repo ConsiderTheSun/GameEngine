@@ -11,10 +11,13 @@ public:
 	CylinderMesh(int resolution);
 
 	GLuint GetVAO() override { return VAO; }
+	GLuint GetVBO() override { return VBO; }
+
 	GLsizei GetPointCount()override { return pointCount; }
 
 private:
 	GLuint VAO;
+	GLuint VBO;
 	int pointCount;
 };
 

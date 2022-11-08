@@ -11,11 +11,13 @@ public:
 	TriangleMesh(glm::vec3 firstPoint, glm::vec3 secondPoint, glm::vec3 thirdPoint,
 		glm::vec2 firstTex, glm::vec2 secondTex, glm::vec2 thirdTex);
 
-	GLuint GetVAO() override { return triangleVAO; }
+	GLuint GetVAO() override { return VAO; }
+	GLuint GetVBO() override { return VBO; }
 	GLsizei GetPointCount()override { return 3; }
 
 private:
-	static GLuint triangleVAO;
+	GLuint VAO;
+	GLuint VBO;
 };
 
 

@@ -77,7 +77,7 @@ void Physics::BroadcastCollisions() {
 
 			CollisionEnterEvent* e2 = new CollisionEnterEvent(
 				collision.first.second->gameObject, collision.first.first->gameObject,
-				collision.second.normal, collision.second.depth);
+				-collision.second.normal, collision.second.depth);
 			eventManager->AddEvent(e2);
 		}
 		else {
@@ -88,7 +88,7 @@ void Physics::BroadcastCollisions() {
 
 			CollisionEvent* e2 = new CollisionEvent(
 				collision.first.second->gameObject, collision.first.first->gameObject,
-				collision.second.normal, collision.second.depth);
+				-collision.second.normal, collision.second.depth);
 			eventManager->AddEvent(e2);
 		}
 	}
@@ -102,7 +102,7 @@ void Physics::BroadcastCollisions() {
 
 			CollisionExitEvent* e2 = new CollisionExitEvent(
 				collision.first.second->gameObject, collision.first.first->gameObject,
-				collision.second.normal, collision.second.depth);
+				-collision.second.normal, collision.second.depth);
 			eventManager->AddEvent(e2);
 		}
 	}

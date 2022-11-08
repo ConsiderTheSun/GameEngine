@@ -11,11 +11,14 @@ public:
 	QuadMesh(glm::vec3 firstPoint, glm::vec3 secondPoint, glm::vec3 thirdPoint, glm::vec3 fourthPoint,
 		glm::vec2 firstTex, glm::vec2 secondTex, glm::vec2 thirdTex, glm::vec2 fourthTex);
 
-	GLuint GetVAO() override { return quadVAO; }
+	GLuint GetVAO() override { return VAO; }
+	GLuint GetVBO() override { return VBO; }
+
 	GLsizei GetPointCount()override { return 6; }
 
 private:
-	static GLuint quadVAO;
+	GLuint VAO;
+	GLuint VBO;
 };
 
 

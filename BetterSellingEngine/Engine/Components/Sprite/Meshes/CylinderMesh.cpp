@@ -8,7 +8,7 @@
 CylinderMesh::CylinderMesh(int resolution) :pointCount(3 * 4* resolution) {
 
 	glGenVertexArrays(1, &VAO);
-	GLuint VBO;
+
 	GLuint EBO;
 
 	int vertCount = 2 * (resolution + 1) * 5;

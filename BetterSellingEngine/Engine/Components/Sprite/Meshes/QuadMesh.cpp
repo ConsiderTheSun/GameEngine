@@ -2,15 +2,11 @@
 
 
 #include <iostream>
-GLuint QuadMesh::quadVAO = -1;
 QuadMesh::QuadMesh(glm::vec3 firstPoint, glm::vec3 secondPoint, glm::vec3 thirdPoint, glm::vec3 fourthPoint,
 						   glm::vec2 firstTex, glm::vec2 secondTex, glm::vec2 thirdTex, glm::vec2 fourthTex){
-	if (quadVAO == -1) {
-		glGenVertexArrays(1, &quadVAO);
-	}
 
-	
-	GLuint VBO;
+
+	glGenVertexArrays(1, &VAO);
 	GLuint EBO;
 
 	float vertices[20] = {
@@ -30,7 +26,7 @@ QuadMesh::QuadMesh(glm::vec3 firstPoint, glm::vec3 secondPoint, glm::vec3 thirdP
 	glGenBuffers(1, &EBO);
 	
 	// bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
-	glBindVertexArray(quadVAO);
+	glBindVertexArray(VAO);
 
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);

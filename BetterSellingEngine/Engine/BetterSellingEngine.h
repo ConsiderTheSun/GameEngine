@@ -1,7 +1,7 @@
 #pragma once
 
 #include "engineIncludes.h"
-
+#include "GameObjectFactory.h"
 class BetterSellingEngine
 {
 public:
@@ -10,7 +10,8 @@ public:
 	void Start();
 	void End() { glfwSetWindowShouldClose(gameWindow.window, true); }
 	
-	
+	void LoadFromFile(std::string fileName);
+
 	~BetterSellingEngine();
 
 	static BetterSellingEngine* GetInstance();

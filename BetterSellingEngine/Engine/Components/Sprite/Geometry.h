@@ -6,5 +6,6 @@
 class Geometry {
 public:
 	virtual GLuint GetVAO() = 0;
+	virtual GLuint GetVBO() = 0;
 	virtual GLsizei GetPointCount() = 0;
 };

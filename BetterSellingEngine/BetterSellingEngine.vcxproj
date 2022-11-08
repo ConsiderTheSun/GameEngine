@@ -150,6 +150,7 @@
     <ClCompile Include="Engine\Components\Sprite\Meshes\CylinderMesh.cpp" />
     <ClCompile Include="Engine\Components\Sprite\Meshes\QuadMesh.cpp" />
     <ClCompile Include="Engine\Components\Sprite\Meshes\CubeMesh.cpp" />
+    <ClCompile Include="Engine\GameObjectFactory.cpp" />
     <ClCompile Include="Engine\Systems\Events\Event.cpp" />
     <ClCompile Include="Engine\Systems\Events\EventManager.cpp" />
     <ClCompile Include="Engine\Systems\Logger.cpp" />
@@ -192,6 +193,7 @@
     <ClInclude Include="Engine\Components\Sprite\Meshes\CylinderMesh.h" />
     <ClInclude Include="Engine\Components\Sprite\Meshes\QuadMesh.h" />
     <ClInclude Include="Engine\Components\Sprite\Meshes\CubeMesh.h" />
+    <ClInclude Include="Engine\GameObjectFactory.h" />
     <ClInclude Include="Engine\Systems\Events\Event.h" />
     <ClInclude Include="Engine\Systems\Events\EventManager.h" />
     <ClInclude Include="Engine\Systems\Logger.h" />

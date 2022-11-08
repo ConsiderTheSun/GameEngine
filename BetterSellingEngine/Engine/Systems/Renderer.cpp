@@ -53,6 +53,7 @@ void Renderer::Draw(const Camera* renderCam, GOM* gom) {
 
 		// draws the object
 		glBindVertexArray(spriteComponent->GetVAO());
+		//glBindBuffer(GL_ARRAY_BUFFER, spriteComponent->GetVBO());
 		glDrawElements(GL_TRIANGLES, spriteComponent->PointCount(), GL_UNSIGNED_INT, 0);
 	}	
 }

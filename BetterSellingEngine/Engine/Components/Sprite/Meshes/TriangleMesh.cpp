@@ -2,15 +2,13 @@
 
 
 #include <iostream>
-GLuint TriangleMesh::triangleVAO = -1;
+
+
 TriangleMesh::TriangleMesh(glm::vec3 firstPoint, glm::vec3 secondPoint, glm::vec3 thirdPoint, 
 						   glm::vec2 firstTex, glm::vec2 secondTex, glm::vec2 thirdTex){
 	
-	if (triangleVAO == -1) {
-		glGenVertexArrays(1, &triangleVAO);
-	}
-	
-	GLuint VBO;
+
+	glGenVertexArrays(1, &VAO);
 	GLuint EBO;
 
 	float vertices[15] = {
@@ -28,7 +26,7 @@ TriangleMesh::TriangleMesh(glm::vec3 firstPoint, glm::vec3 secondPoint, glm::vec
 	glGenBuffers(1, &EBO);
 	
 	// bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
-	glBindVertexArray(triangleVAO);
+	glBindVertexArray(VAO);
 
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);

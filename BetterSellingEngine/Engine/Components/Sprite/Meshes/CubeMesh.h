@@ -9,11 +9,13 @@ class CubeMesh : public Geometry
 {
 public:
 	CubeMesh(float sizeLength = 1);
-	GLuint GetVAO() override { return cubeVAO; }
+	GLuint GetVAO() override { return VAO; }
+	GLuint GetVBO() override { return VBO; }
 	GLsizei GetPointCount()override { return 36; }
 
 private:
-	static GLuint cubeVAO;
+	GLuint VAO;
+	GLuint VBO;
 };
 
 

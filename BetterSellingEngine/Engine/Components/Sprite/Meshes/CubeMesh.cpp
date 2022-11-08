@@ -2,14 +2,11 @@
 
 
 #include <iostream>
-GLuint CubeMesh::cubeVAO = -1;
 
 CubeMesh::CubeMesh(float sizeLength){
 
-    if (cubeVAO == -1) {
-        glGenVertexArrays(1, &cubeVAO);
-    }
-	GLuint VBO;
+
+    glGenVertexArrays(1, &VAO);
 	GLuint EBO;
 
 	float p = 0.5f * sizeLength;
@@ -72,7 +69,7 @@ CubeMesh::CubeMesh(float sizeLength){
 	glGenBuffers(1, &EBO);
 	
 	// bind the Vertex Array Object first, then bind and set vertex buffer(s), and then configure vertex attributes(s).
-    glBindVertexArray(cubeVAO);
+    glBindVertexArray(VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 

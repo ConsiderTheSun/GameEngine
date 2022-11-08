@@ -8,7 +8,7 @@
 CircleMesh::CircleMesh(int resolution) :pointCount(3* resolution) {
 
 	glGenVertexArrays(1, &VAO);
-	GLuint VBO;
+
 	GLuint EBO;
 
 	int vertCount = (resolution + 1) * 5;

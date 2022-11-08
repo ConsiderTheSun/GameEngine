@@ -19,6 +19,10 @@ void BetterSellingEngine::Initialize(std::string windowName, Camera::Dimensions 
 	eventManagerSystem = EventManager::GetInstance();
 }
 
+void BetterSellingEngine::LoadFromFile(std::string fileName) {
+	GameObjectFactory::CreateAllGameObjects(this, fileName);
+}
+
 void BetterSellingEngine::Start() {
 	while (!gameWindow.ShouldClose()) {
 		

@@ -61,3 +61,13 @@ void Sprite::RemoveCustomShader() {
 	free(customShader);
 	customShader = NULL;
 }
+
+Sprite::Mesh Sprite::StringToMesh(std::string meshName) {
+	if (meshName == "triangle") return Triangle;
+	if (meshName == "quad")		return Quad;
+	if (meshName == "cube")		return Cube;
+	if (meshName == "circle")	return Circle;
+	if (meshName == "cylinder") return Cylinder;
+
+	return Triangle;
+}

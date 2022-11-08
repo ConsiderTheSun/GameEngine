@@ -153,7 +153,7 @@ void PlayerController2D::MoveObjectFollow() {
 	//glm::vec3 camPos = mainCamera->transform.GetPosition();
 	//currentObject->GetComponent<Transform>()->SetWorldPosition(glm::vec3(camPos.x,camPos.y,0));
 
-	mainCamera->transform.SetPosition(currentObject->GetComponent<Transform>()->GetPosition());
+	mainCamera->transform.SetPosition(currentObject->GetComponent<Transform>()->GetWorldPosition());
 
 	Transform* transform = currentObject->transform;
 	if (Input::KeyDown(GLFW_KEY_LEFT) == Input::State::Down) {

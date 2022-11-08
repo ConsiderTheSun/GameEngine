@@ -28,8 +28,12 @@ void TwoDTesting::Setup() {
 	bse->AddGameObject(basicBoy);
 
 
-
+	// game objects from code
 	SpawnEntities();
+
+
+	// game objects from file
+	bse->LoadFromFile("./Applications/2dTesting/2dSetup.json");
 
 
 
@@ -317,6 +321,8 @@ void TwoDTesting::SpawnEntities() {
 	sadGO->AddComponent<WhenSadCollides2D>();
 	//sadGO->AddComponent<PhysicsPlay>();
 	bse->AddGameObject(sadGO);
+
+	std::cout << "PhyPl: " << typeid(PhysicsPlay).name() << std::endl;
 
 	
 }
