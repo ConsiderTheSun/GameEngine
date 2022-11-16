@@ -12,36 +12,41 @@ CubeMesh::CubeMesh(float sizeLength){
 	float p = 0.5f * sizeLength;
 
     float vertices[] = {
-        
-        -p, -p, -p,  0.0f, 0.0f,
-         p, -p, -p,  1.0f, 0.0f,
-         p,  p, -p,  1.0f, 1.0f,
-        -p,  p, -p,  0.0f, 1.0f,
+        // back plane
+        -p, -p, -p,  1.0f, 0.0f, 0,0,-1,
+         p, -p, -p,  0.0f, 0.0f, 0,0,-1,
+         p,  p, -p,  0.0f, 1.0f, 0,0,-1,
+        -p,  p, -p,  1.0f, 1.0f, 0,0,-1,
 
-        -p, -p,  p,  0.0f, 0.0f,
-         p, -p,  p,  1.0f, 0.0f,
-         p,  p,  p,  1.0f, 1.0f,
-        -p,  p,  p,  0.0f, 1.0f,
+        // front plane
+        -p, -p,  p,  0.0f, 0.0f, 0,0,1,
+         p, -p,  p,  1.0f, 0.0f, 0,0,1,
+         p,  p,  p,  1.0f, 1.0f, 0,0,1,
+        -p,  p,  p,  0.0f, 1.0f, 0,0,1,
 
-        -p,  p,  p,  1.0f, 0.0f,
-        -p,  p, -p,  1.0f, 1.0f,
-        -p, -p, -p,  0.0f, 1.0f,
-        -p, -p,  p,  0.0f, 0.0f,
+        // left plane
+        -p,  p,  p,  1.0f, 0.0f, -1,0,0,
+        -p,  p, -p,  1.0f, 1.0f, -1,0,0,
+        -p, -p, -p,  0.0f, 1.0f, -1,0,0,
+        -p, -p,  p,  0.0f, 0.0f, -1,0,0,
 
-         p,  p,  p,  1.0f, 0.0f,
-         p,  p, -p,  1.0f, 1.0f,
-         p, -p, -p,  0.0f, 1.0f,
-         p, -p,  p,  0.0f, 0.0f,
+        //right plane
+         p,  p,  p,  1.0f, 0.0f, 1,0,0,
+         p,  p, -p,  1.0f, 1.0f, 1,0,0,
+         p, -p, -p,  0.0f, 1.0f, 1,0,0,
+         p, -p,  p,  0.0f, 0.0f, 1,0,0,
 
-        -p, -p, -p,  0.0f, 1.0f,
-         p, -p, -p,  1.0f, 1.0f,
-         p, -p,  p,  1.0f, 0.0f,
-        -p, -p,  p,  0.0f, 0.0f,
+         //bottom plane
+        -p, -p, -p,  0.0f, 1.0f, 0,-1,0,
+         p, -p, -p,  1.0f, 1.0f, 0,-1,0,
+         p, -p,  p,  1.0f, 0.0f, 0,-1,0,
+        -p, -p,  p,  0.0f, 0.0f, 0,-1,0,
 
-        -p,  p, -p,  0.0f, 1.0f,
-         p,  p, -p,  1.0f, 1.0f,
-         p,  p,  p,  1.0f, 0.0f,
-        -p,  p,  p,  0.0f, 0.0f
+        // top plane
+        -p,  p, -p,  0.0f, 1.0f, 0,1,0,
+         p,  p, -p,  1.0f, 1.0f, 0,1,0,
+         p,  p,  p,  1.0f, 0.0f, 0,1,0,
+        -p,  p,  p,  0.0f, 0.0f, 0,1,0,
     };
 
 
@@ -76,11 +81,14 @@ CubeMesh::CubeMesh(float sizeLength){
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
+
+    glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(5 * sizeof(float)));
+    glEnableVertexAttribArray(2);
 
 	glBindVertexArray(0);
 }

@@ -136,6 +136,7 @@
     <ClCompile Include="Applications\2dTesting\CustomScripts\WhenSadCollides2D.cpp" />
     <ClCompile Include="Applications\3dTesting\3dTesting.cpp" />
     <ClCompile Include="Applications\3dTesting\CustomScripts\PlayerController3D.cpp" />
+    <ClCompile Include="Applications\3dTesting\CustomScripts\SunController.cpp" />
     <ClCompile Include="Applications\AwesomeGame\AwesomeGame.cpp" />
     <ClCompile Include="Applications\SharedCustomScripts\PhysicsPlay.cpp" />
     <ClCompile Include="Applications\3dTesting\CustomScripts\WhenSadCollides3D.cpp" />
@@ -150,6 +151,7 @@
     <ClCompile Include="Engine\Components\Sprite\Meshes\CylinderMesh.cpp" />
     <ClCompile Include="Engine\Components\Sprite\Meshes\QuadMesh.cpp" />
     <ClCompile Include="Engine\Components\Sprite\Meshes\CubeMesh.cpp" />
+    <ClCompile Include="Engine\Components\Sprite\Meshes\SphereMesh.cpp" />
     <ClCompile Include="Engine\GameObjectFactory.cpp" />
     <ClCompile Include="Engine\Systems\Events\Event.cpp" />
     <ClCompile Include="Engine\Systems\Events\EventManager.cpp" />
@@ -175,6 +177,7 @@
     <ClInclude Include="Applications\2dTesting\CustomScripts\WhenSadCollides2D.h" />
     <ClInclude Include="Applications\3dTesting\3dTesting.h" />
     <ClInclude Include="Applications\3dTesting\CustomScripts\PlayerController3D.h" />
+    <ClInclude Include="Applications\3dTesting\CustomScripts\SunController.h" />
     <ClInclude Include="Applications\AwesomeGame\AwesomeGame.h" />
     <ClInclude Include="Applications\SharedCustomScripts\PhysicsPlay.h" />
     <ClInclude Include="Applications\3dTesting\CustomScripts\WhenSadCollides3D.h" />
@@ -193,6 +196,7 @@
     <ClInclude Include="Engine\Components\Sprite\Meshes\CylinderMesh.h" />
     <ClInclude Include="Engine\Components\Sprite\Meshes\QuadMesh.h" />
     <ClInclude Include="Engine\Components\Sprite\Meshes\CubeMesh.h" />
+    <ClInclude Include="Engine\Components\Sprite\Meshes\SphereMesh.h" />
     <ClInclude Include="Engine\GameObjectFactory.h" />
     <ClInclude Include="Engine\Systems\Events\Event.h" />
     <ClInclude Include="Engine\Systems\Events\EventManager.h" />

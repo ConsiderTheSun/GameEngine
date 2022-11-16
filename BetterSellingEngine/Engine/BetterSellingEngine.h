@@ -25,6 +25,11 @@ public:
 
 	void AddEvent(Event* e);
 
+	void EnableLighting() { renderSystem.EnableLighting(); }
+	void DisableLighting() { renderSystem.DisableLighting(); }
+	void SetLightPosition(glm::vec3 newPos) { renderSystem.SetLightPosition(newPos); }
+	glm::vec3 GetLightPosition() { return renderSystem.GetLightPosition(); }
+
 	template <typename T,
 		typename = std::enable_if_t<std::is_base_of_v<Event, T>>>
 	inline void RegisterEvent() {

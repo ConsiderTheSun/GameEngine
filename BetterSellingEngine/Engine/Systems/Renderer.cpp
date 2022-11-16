@@ -41,6 +41,10 @@ void Renderer::Draw(const Camera* renderCam, GOM* gom) {
 			glBindTexture(GL_TEXTURE_2D, mID);
 		}
 
+		//light uniforms
+		currentShader->setBool("usingLighting", useLight);
+		currentShader->setVec3("lightPos", glm::value_ptr(lightPos));
+
 		// sets the mvp matrices
 		glm::mat4 model = glm::translate(glm::mat4(1.0f), gomItr->transform->GetWorldPosition());
 		model *= gomItr->transform->GetRotationMatrix();

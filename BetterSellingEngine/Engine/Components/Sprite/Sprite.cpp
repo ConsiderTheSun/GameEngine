@@ -40,6 +40,10 @@ void Sprite::SetCylinderGeometry(int resolution) {
 	geometry = new CylinderMesh(resolution);
 }
 
+void Sprite::SetSphereGeometry(int resolution) {
+	geometry = new SphereMesh(resolution);
+}
+
 bool Sprite::SetMaterial(const char* texPath, bool noAlpha) { 
 	// creates the new sprite and checks if it was created properly
 	Material* newMaterial = new Material(texPath, noAlpha);

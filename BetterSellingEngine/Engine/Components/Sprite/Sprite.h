@@ -8,6 +8,7 @@
 #include "Meshes/CubeMesh.h"
 #include "Meshes/CircleMesh.h"
 #include "Meshes/CylinderMesh.h"
+#include "Meshes/SphereMesh.h"
 
 #include "Material.h"
 #include "../Shader.h"
@@ -43,6 +44,7 @@ public:
 
 	void SetCircleGeometry(int resolution = 40);
 	void SetCylinderGeometry(int resolution = 40);
+	void SetSphereGeometry(int resolution = 40);
 
 	GLsizei PointCount() { return geometry->GetPointCount(); }
 	const GLuint GetVAO() { return geometry->GetVAO(); }

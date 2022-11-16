@@ -13,7 +13,15 @@ public:
 
 	void Draw(const Camera* renderCam, GOM* gom);
 
+	void EnableLighting() { useLight = true; }
+	void DisableLighting() { useLight = false; }
+	void SetLightPosition(glm::vec3 newPos) { lightPos = newPos; }
+	glm::vec3 GetLightPosition() { return lightPos; }
+
 private:
 	Shader* defaultShader;
+
+	bool useLight = false;
+	glm::vec3 lightPos = glm::vec3(0, 0, 0);
 };
 

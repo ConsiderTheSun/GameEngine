@@ -8,13 +8,16 @@
 
 #include "CustomScripts/WhenSadCollides3D.h"
 #include "../SharedCustomScripts/PhysicsPlay.h"
+
+#include "CustomScripts/SunController.h"
+
 class ThreeDTesting {
 public:
 	void Setup();
 	void Start();
 private:
 	BetterSellingEngine* bse;
-
+	void LetThereBeLight();
 	void SpawnEntities();
 
 	void SpawnGround();
@@ -23,5 +26,9 @@ private:
 	void LikeStarsInTheSky();
 
 	void SpawnCylinderThing();
+
+	void ThesePlainPlanes();
+
+	void ACircleBut3D();
 };
 

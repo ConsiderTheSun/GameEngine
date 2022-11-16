@@ -64,6 +64,10 @@ void ThreeDTesting::Start() {
 	delete(bse);
 }
 void ThreeDTesting::SpawnEntities() {
+	
+	ACircleBut3D();
+	ThesePlainPlanes();
+
 	SpawnGround();
 
 	LikeStarsInTheSky();
@@ -74,10 +78,71 @@ void ThreeDTesting::SpawnEntities() {
 
 	sadGO->AddComponent<WhenSadCollides3D>();
 	sadGO->AddComponent<PhysicsPlay>();
+
+	LetThereBeLight();
 }
 
+void ThreeDTesting::LetThereBeLight() {
+	bse->EnableLighting();
+	bse->SetLightPosition(glm::vec3(0, 3, 0));
+
+	GameObject* sunGO = new GameObject("Black Hole Sun");
+
+	//Sprite* sunSprite = sunGO->AddComponent<Sprite>();
+	sunGO->AddComponent<Sprite>();
+
+	Sprite* sunSprite = sunGO->GetComponent<Sprite>();
+	sunSprite->SetCubeGeometry();
+	sunSprite->SetColor(glm::vec3(1, 1, 1));
+	sunSprite->SetMaterial("./assets/blackHole.png");
+
+
+
+	Transform* sunT = sunGO->GetComponent<Transform>();
+	sunT->SetPosition(glm::vec3(0, 3, 0));
+	sunT->SetScale(glm::vec3(0.1, 0.1, 0.1));
+
+	sunGO->AddComponent<SunController>();
+
+	bse->AddGameObject(sunGO);
+
+}
+
+void ThreeDTesting::ThesePlainPlanes() {
+	GameObject* planeFriend = new GameObject("PlainPlane");
+	planeFriend->AddComponent<Sprite>();
+
+	Sprite* pSprite = planeFriend->GetComponent<Sprite>();
+	pSprite->SetQuadGeometry();
+	pSprite->SetColor(glm::vec3(0, 0.5, 0.07));
+
+	Transform* pT = planeFriend->GetComponent<Transform>();
+
+	pT->SetPosition(glm::vec3(0, 0, 0));
+	pT->SetRotation(glm::vec3(0, 3.14, 0));
+	pT->SetScale(glm::vec3(1, 1, 1));
+
+
+	bse->AddGameObject(planeFriend);
+}
+
+void ThreeDTesting::ACircleBut3D() {
+	GameObject* sphereBud = new GameObject("Sphere==Best Friend");
+	sphereBud->AddComponent<Sprite>();
+
+	Sprite* sphereSprite = sphereBud->GetComponent<Sprite>();
+	sphereSprite->SetSphereGeometry(100);
+	sphereSprite->SetColor(glm::vec3(1, 0.8, 1));
+	//sphereSprite->SetColor(glm::vec3(0, 0, 0));
+	//sphereSprite->SetMaterial("./assets/47.png");
+
+	Transform* sphereyT = sphereBud->GetComponent<Transform>();
+
+	sphereyT->SetPosition(glm::vec3(2,2,2));
+
+	bse->AddGameObject(sphereBud);
+}
 void ThreeDTesting::SpawnGround() {
-	BetterSellingEngine* bse = BetterSellingEngine::GetInstance();
 
 	GameObject* groundFriend = new GameObject("Ground");
 	groundFriend->AddComponent<Sprite>();
@@ -89,7 +154,7 @@ void ThreeDTesting::SpawnGround() {
 	Transform* cubeyT = groundFriend->GetComponent<Transform>();
 
 	cubeyT->SetPosition(glm::vec3(0, -1, 0));
-	cubeyT->SetRotation(glm::vec3(3.14 / 2, 0, 0));
+	cubeyT->SetRotation(glm::vec3(-3.14 / 2, 0, 0));
 	cubeyT->SetScale(glm::vec3(10, 10, 1));
 	groundFriend->AddComponent<PhysicsBody>();
 	PhysicsBody* cubeB = groundFriend->GetComponent<PhysicsBody>();

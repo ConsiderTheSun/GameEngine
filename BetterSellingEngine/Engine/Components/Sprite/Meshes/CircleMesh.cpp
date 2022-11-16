@@ -11,22 +11,32 @@ CircleMesh::CircleMesh(int resolution) :pointCount(3* resolution) {
 
 	GLuint EBO;
 
-	int vertCount = (resolution + 1) * 5;
+	int vertCount = (resolution + 1) * 8;
 	float* vertices = new float[vertCount]();
 	vertices[0] = 0;
 	vertices[1] = 0;
 	vertices[2] = 0;
+
 	vertices[3] = 0.5;
 	vertices[4] = 0.5;
+
+	vertices[5] = 0;
+	vertices[6] = 0;
+	vertices[7] = 1;
 
 	float deltaTheta = 2*M_PI / resolution;
 	float theta = 0;
 	for (int i = 1; i < resolution + 1; ++i) {
-		vertices[5 * i] = 0.5f*cos(theta);
-		vertices[5 * i + 1] = 0.5*sin(theta);
-		vertices[5 * i + 2] = 0;
-		vertices[5 * i + 3] = 0.5f * cos(theta)+0.5;
-		vertices[5 * i + 4] = 0.5 * sin(theta)+0.5;
+		vertices[8 * i] = 0.5f*cos(theta);
+		vertices[8 * i + 1] = 0.5*sin(theta);
+		vertices[8 * i + 2] = 0;
+
+		vertices[8 * i + 3] = 0.5f * cos(theta)+0.5;
+		vertices[8 * i + 4] = 0.5 * sin(theta)+0.5;
+
+		vertices[8 * i + 5] = 0;
+		vertices[8 * i + 6] = 0;
+		vertices[8 * i + 7] = 1;
 
 		theta += deltaTheta;
 	}
@@ -54,11 +64,14 @@ CircleMesh::CircleMesh(int resolution) :pointCount(3* resolution) {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, 3*sizeof(unsigned int)*resolution, indices, GL_STATIC_DRAW);
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
 	glEnableVertexAttribArray(0);
 
-	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+	glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
 	glEnableVertexAttribArray(1);
+
+	glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(5 * sizeof(float)));
+	glEnableVertexAttribArray(2);
 
 	glBindVertexArray(0);
 
