@@ -51,3 +51,10 @@ void PhysicsBody::SetOBC() {
 void PhysicsBody::SetCircle() {
 	shape = new Circle();
 }
+
+void PhysicsBody::SetCylinderAA() {
+	shape = new CylinderAA();
+}
+void PhysicsBody::SetSphere() {
+	shape = new Sphere();
+}

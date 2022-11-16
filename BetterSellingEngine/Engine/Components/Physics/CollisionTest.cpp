@@ -1,6 +1,7 @@
 #include "CollisionTest.h"
 
 bool CollisionTest::Test(PhysicsBody* body1, PhysicsBody* body2, glm::vec3* normal, float* depth) {
+
 	// checks if layers interact
 	int layer1 = body1->gameObject->GetLayer();
 	int layer2 = body2->gameObject->GetLayer();
@@ -8,7 +9,7 @@ bool CollisionTest::Test(PhysicsBody* body1, PhysicsBody* body2, glm::vec3* norm
 		return false;
 	}
 
-	
+
 	// body 1 is OBB 
 	if (body1->GetShapeType() == Shape::ShapeType::OBB && body2->GetShapeType() == Shape::ShapeType::OBB) {
 		return OBB_OBB_Test(body1, body2, normal, depth);
@@ -46,7 +47,20 @@ bool CollisionTest::Test(PhysicsBody* body1, PhysicsBody* body2, glm::vec3* norm
 		return OBC2AA_OBC2AA_Test(body1, body2);
 	}
 
-	
+
+	// body 1 is CylinderAA
+	if (body1->GetShapeType() == Shape::ShapeType::CylinderAA && body2->GetShapeType() == Shape::ShapeType::CylinderAA) {
+		return CylinderAA_CylinderAA_Test(body1, body2);
+	}
+	if (body1->GetShapeType() == Shape::ShapeType::CylinderAA && body2->GetShapeType() == Shape::ShapeType::Sphere) {
+		return CylinderAA_Sphere_Test(body1, body2);
+	}
+
+	//body1 is Sphere
+	if (body1->GetShapeType() == Shape::ShapeType::Sphere && body2->GetShapeType() == Shape::ShapeType::CylinderAA) {
+		return CylinderAA_Sphere_Test(body2, body1);
+	}
+
 	
 
 	return false;
@@ -420,4 +434,44 @@ bool CollisionTest::OBB_Circle_Test(PhysicsBody* body1, PhysicsBody* body2) {
 	}
 
 	return true;
+}
+
+
+bool CollisionTest::CylinderAA_CylinderAA_Test(PhysicsBody* body1, PhysicsBody* body2) {
+	Transform* t1 = body1->gameObject->GetComponent<Transform>();
+	Transform* t2 = body2->gameObject->GetComponent<Transform>();
+
+	float radius1 = 0.5f * t1->GetWorldScale().x;
+	float radius2 = 0.5f * t2->GetWorldScale().x;
+	glm::vec3 diff = t1->GetPosition() - t2->GetPosition();
+
+	float squareDist = diff.x * diff.x + diff.y * diff.y + diff.z * diff.z;
+	float squareRSum = radius1 + radius2;
+	squareRSum *= squareRSum;
+
+	if (squareDist < squareRSum) {
+		//TODO: check if cylinders intersect on aligned axis
+		return true;
+	}
+	return false;
+}
+
+bool CollisionTest::CylinderAA_Sphere_Test(PhysicsBody* body1, PhysicsBody* body2) {
+	Transform* t1 = body1->gameObject->GetComponent<Transform>();
+	Transform* t2 = body2->gameObject->GetComponent<Transform>();
+
+	float radius1 = 0.5f * t1->GetWorldScale().x;
+	float radius2 = 0.5f * t2->GetWorldScale().x;
+
+	glm::vec3 diff = t1->GetPosition() - t2->GetPosition();
+
+	float squareDist = diff.x * diff.x + diff.y * diff.y + diff.z * diff.z;
+	float squareRSum = radius1 + radius2;
+	squareRSum *= squareRSum;
+
+	if (squareDist < squareRSum) {
+		//TODO: check if sphere against z axis of cylinder
+		return true;
+	}
+	return false;
 }

@@ -45,4 +45,9 @@ private:
 	static bool OBC_OBC_Test(PhysicsBody* body1, PhysicsBody* body2);
 	static bool OBC_OBB_Test(PhysicsBody* body1, PhysicsBody* body2);
 	static bool OBB_Circle_Test(PhysicsBody* body1, PhysicsBody* body2);
+
+
+	static bool CylinderAA_CylinderAA_Test(PhysicsBody* body1, PhysicsBody* body2);
+	static bool CylinderAA_Sphere_Test(PhysicsBody* body1, PhysicsBody* body2);
+
 };

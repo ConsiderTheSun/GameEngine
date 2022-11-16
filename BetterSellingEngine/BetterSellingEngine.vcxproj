@@ -138,6 +138,11 @@
     <ClCompile Include="Applications\3dTesting\CustomScripts\PlayerController3D.cpp" />
     <ClCompile Include="Applications\3dTesting\CustomScripts\SunController.cpp" />
     <ClCompile Include="Applications\AwesomeGame\AwesomeGame.cpp" />
+    <ClCompile Include="Applications\AwesomeGame\CustomScripts\CameraController.cpp" />
+    <ClCompile Include="Applications\AwesomeGame\CustomScripts\EnemyManager.cpp" />
+    <ClCompile Include="Applications\AwesomeGame\CustomScripts\GameController.cpp" />
+    <ClCompile Include="Applications\AwesomeGame\CustomScripts\PlayerController.cpp" />
+    <ClCompile Include="Applications\AwesomeGame\EntityFactory.cpp" />
     <ClCompile Include="Applications\SharedCustomScripts\PhysicsPlay.cpp" />
     <ClCompile Include="Applications\3dTesting\CustomScripts\WhenSadCollides3D.cpp" />
     <ClCompile Include="Engine\BetterSellingEngine.cpp" />
@@ -179,6 +184,11 @@
     <ClInclude Include="Applications\3dTesting\CustomScripts\PlayerController3D.h" />
     <ClInclude Include="Applications\3dTesting\CustomScripts\SunController.h" />
     <ClInclude Include="Applications\AwesomeGame\AwesomeGame.h" />
+    <ClInclude Include="Applications\AwesomeGame\CustomScripts\CameraController.h" />
+    <ClInclude Include="Applications\AwesomeGame\CustomScripts\EnemyManager.h" />
+    <ClInclude Include="Applications\AwesomeGame\CustomScripts\GameController.h" />
+    <ClInclude Include="Applications\AwesomeGame\CustomScripts\PlayerController.h" />
+    <ClInclude Include="Applications\AwesomeGame\EntityFactory.h" />
     <ClInclude Include="Applications\SharedCustomScripts\PhysicsPlay.h" />
     <ClInclude Include="Applications\3dTesting\CustomScripts\WhenSadCollides3D.h" />
     <ClInclude Include="Engine\BetterSellingEngine.h" />
@@ -187,11 +197,13 @@
     <ClInclude Include="Engine\Components\Physics\Circle.h" />
     <ClInclude Include="Engine\Components\Physics\CollisionTest.h" />
     <ClInclude Include="Engine\Components\Physics\Contact.h" />
+    <ClInclude Include="Engine\Components\Physics\CylinderAA.h" />
     <ClInclude Include="Engine\Components\Physics\OBB.h" />
     <ClInclude Include="Engine\Components\Physics\OBC.h" />
     <ClInclude Include="Engine\Components\Physics\OBC2AA.h" />
     <ClInclude Include="Engine\Components\Physics\PhysicsBody.h" />
     <ClInclude Include="Engine\Components\Physics\Shape.h" />
+    <ClInclude Include="Engine\Components\Physics\Sphere.h" />
     <ClInclude Include="Engine\Components\Sprite\Meshes\CircleMesh.h" />
     <ClInclude Include="Engine\Components\Sprite\Meshes\CylinderMesh.h" />
     <ClInclude Include="Engine\Components\Sprite\Meshes\QuadMesh.h" />

@@ -212,10 +212,11 @@ void ThreeDTesting::SpawnCylinderThing() {
 	thingSprite->SetColor(glm::vec3(0.5, 1, 0.6));
 	//thingSprite->SetMaterial("./assets/47.png");
 
-	Transform* cubeyT = cylinderThing->GetComponent<Transform>();
+	Transform* cylT = cylinderThing->GetComponent<Transform>();
 
-	cubeyT->SetPosition(glm::vec3(3,3,0));
+	cylT->SetPosition(glm::vec3(3,3,0));
 
+	
 
 	bse->AddGameObject(cylinderThing);
 }

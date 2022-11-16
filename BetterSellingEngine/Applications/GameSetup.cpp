@@ -7,8 +7,9 @@ int main() {
 	std::cout << "Choose Game:\n";
 	std::cout << "2: 2dTesting\n";
 	std::cout << "3: 3dTesting \n";
+	std::cout << "a for AwesomeGame (tm)\n";
 	std::cout << "Enter: ";
-	//std::cout << "a for AwesomeGame!!!(wip)\n";
+	
 
 	std::cin >> d;
 	if (d == "2") {

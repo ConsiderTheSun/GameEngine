@@ -7,6 +7,8 @@
 #include "OBC2AA.h"
 #include "OBC.h"
 #include "Circle.h"
+#include "CylinderAA.h"
+#include "Sphere.h"
 
 #include "../../GameObject.h"
 class PhysicsBody : public Component {
@@ -37,6 +39,9 @@ public:
 	void SetOBC();
 
 	void SetCircle();
+
+	void SetCylinderAA();
+	void SetSphere();
 
 private:
 	Shape* shape = nullptr;

@@ -12,7 +12,6 @@ Physics::Physics() {
 }
 
 void Physics::Update(GOM* gom) {
-
 	for (GOM::Iterator gomItr = gom->begin(), end = gom->end(); gomItr != end; ++gomItr) {
 		// gets the body and skips GOs that don't have one
 		PhysicsBody* bodyComponent = gomItr->GetComponent<PhysicsBody>();
@@ -21,10 +20,11 @@ void Physics::Update(GOM* gom) {
 		bodyComponent->Integrate(gravity);
 	}
 
-
-	contact.Reset();
+	
+	contact.Reset(); 
 	EvaluateCollisions(gom);
 	BroadcastCollisions();	
+
 }
 
 
@@ -41,6 +41,7 @@ void Physics::EvaluateCollisions(GOM* gom) {
 			++gomItr2;
 		}
 		if(gomItr2 != end) ++gomItr2;
+		
 
 		for (; gomItr2 != end; ++gomItr2) {
 			// gets the body and skips GOs that don't have one
@@ -57,7 +58,6 @@ void Physics::EvaluateCollisions(GOM* gom) {
 			}
 		}
 	}
-
 }
 
 
