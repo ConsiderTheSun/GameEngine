@@ -67,6 +67,8 @@ void Contact::RemoveGameObject(GameObject* gameObject) {
 		for (const CollisionInstance& c : *collisionList) {
 			if (c.first.first->gameObject == gameObject) {
 				collisionList->erase(c.first);
+				found = true;
+				break;
 			}
 			else if (c.first.second->gameObject == gameObject) {
 				collisionList->erase(c.first);

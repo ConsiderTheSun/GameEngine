@@ -37,7 +37,7 @@ void PlayerController::OnCollisionEnter(CollisionEvent* e) {
 		sprite->SetColor(glm::vec3(0.5, 0, 0.5));
 	}
 
-	//GameObject::Destroy(e->collisionObject);
+	GameObject::Destroy(e->collisionObject);
 }
 
 void PlayerController::OnCollisionExit(CollisionEvent* e) {

@@ -64,7 +64,7 @@ void AwesomeGame::CreateEnvironment() {
 	groundFriend->AddComponent<Sprite>();
 
 	Sprite* groundSprite = groundFriend->GetComponent<Sprite>();
-	groundSprite->SetQuadGeometry();
+	groundSprite->SetCircleGeometry();
 	groundSprite->SetColor(glm::vec3(0, 0.5, 0.07));
 
 	Transform* groundT = groundFriend->GetComponent<Transform>();
