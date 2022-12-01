@@ -44,7 +44,7 @@ void BetterSellingEngine::Start() {
 			++loops;
 
 			if (loops > 10) {
-				std::cout << "PROBLEMS PROBLEMS PROBLEMS\n";
+				//std::cout << "PROBLEMS PROBLEMS PROBLEMS\n";
 				break;
 			}
 		}

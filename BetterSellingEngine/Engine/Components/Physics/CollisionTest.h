@@ -49,6 +49,7 @@ private:
 
 	static bool CylinderAA_CylinderAA_Test(PhysicsBody* body1, PhysicsBody* body2, glm::vec3* normal, float* depth);
 	static bool CylinderAA_Sphere_Test(PhysicsBody* body1, PhysicsBody* body2);
+	static bool Sphere_Sphere_Test(PhysicsBody* body1, PhysicsBody* body2);
 
 public:
 	static bool PointInOBB(glm::vec3 point, PhysicsBody* body);

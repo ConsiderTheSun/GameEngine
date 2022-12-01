@@ -9,13 +9,13 @@ PlatformManager* EnemyManager::platformManager = nullptr;
 void EnemyManager::Update(float dt) {
 	spawnCountdown -= dt;
 
-	/*if (spawnCountdown < 0) {
+	if (spawnCountdown < 0) {
 		spawnCountdown = SPAWN_RATE;
 		SpawnFollowEnemy();
-	}*/
+	}
 	if (Input::KeyDown(GLFW_MOUSE_BUTTON_RIGHT) == Input::State::Enter) {
-		for(int i=0;i<10;++i)
-			SpawnFollowEnemy();
+		//for(int i=0;i<10;++i)
+		SpawnFollowEnemy();
 	}
 }
 

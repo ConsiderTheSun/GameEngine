@@ -60,6 +60,9 @@ bool CollisionTest::Test(PhysicsBody* body1, PhysicsBody* body2, glm::vec3* norm
 	if (body1->GetShapeType() == Shape::ShapeType::Sphere && body2->GetShapeType() == Shape::ShapeType::CylinderAA) {
 		return CylinderAA_Sphere_Test(body2, body1);
 	}
+	if (body1->GetShapeType() == Shape::ShapeType::Sphere && body2->GetShapeType() == Shape::ShapeType::Sphere) {
+		return Sphere_Sphere_Test(body1, body2);
+	}
 
 	
 
@@ -560,6 +563,27 @@ bool CollisionTest::CylinderAA_Sphere_Test(PhysicsBody* body1, PhysicsBody* body
 	}
 	return false;
 
+}
+
+bool CollisionTest::Sphere_Sphere_Test(PhysicsBody* body1, PhysicsBody* body2) {
+	Transform* t1 = body1->gameObject->GetComponent<Transform>();
+	Transform* t2 = body2->gameObject->GetComponent<Transform>();
+
+	glm::vec3 center1 = t1->GetWorldPosition();
+	glm::vec3 center2 = t2->GetWorldPosition();
+
+	float radius1 = 0.5f * t1->GetWorldScale().x;
+	float radius2 = 0.5f * t2->GetWorldScale().x;
+
+	glm::vec3 diff = center1 - center2;
+	float squareDist = glm::dot(diff, diff);
+	float squareRSum = radius1 + radius2;
+	squareRSum *= squareRSum;
+
+	if (squareDist < squareRSum) {
+		return true;
+	}
+	return false;
 }
 
 

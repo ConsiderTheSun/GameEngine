@@ -11,6 +11,10 @@ void ProjectileController::OnCollisionEnter(CollisionEvent* e) {
 
 	GameObject* cObj = e->collisionObject;
 	if (cObj->GetLayerName() == "Enemy Layer") {
+		while (cObj->GetParent()) {
+			cObj = cObj->GetParent();
+		}
+
 		Enemy* enemy = cObj->GetComponent<Enemy>();
 		if (enemy) {
 			enemy->TakeDamage(1);

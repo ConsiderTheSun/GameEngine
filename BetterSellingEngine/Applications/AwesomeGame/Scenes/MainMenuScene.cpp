@@ -100,7 +100,7 @@ void MainMenuScene::SpawnInstructions() {
 	Sprite* sprite = instructions->AddComponent<Sprite>();
 
 	sprite->SetQuadGeometry();
-	sprite->SetMaterial("./assets/instructions.png", true);
+	sprite->SetMaterial("./assets/instructions.png", false);
 
 	Transform* transform = instructions->GetComponent<Transform>();
 	transform->SetPosition(glm::vec3(0, 0.2, 0));
