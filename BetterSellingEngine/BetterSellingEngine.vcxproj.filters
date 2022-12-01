@@ -147,6 +147,33 @@
     <ClCompile Include="Applications\AwesomeGame\EntityFactory.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Applications\AwesomeGame\CustomScripts\ProjectileController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Applications\AwesomeGame\CustomScripts\Enemy\Follower.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Applications\AwesomeGame\Scenes\GameScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Applications\AwesomeGame\Scenes\MainMenuScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Applications\AwesomeGame\CustomScripts\GuiStuff\MainMenuController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Applications\AwesomeGame\Scenes\GameOverScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Applications\AwesomeGame\CustomScripts\GuiStuff\GameOverController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Applications\3dTesting\CustomScripts\CylinderTester.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Applications\AwesomeGame\CustomScripts\PlatformManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\GameWindow.h">
@@ -303,6 +330,39 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Components\Physics\Sphere.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Applications\AwesomeGame\CustomScripts\ProjectileController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Applications\AwesomeGame\CustomScripts\Enemy\Follower.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Applications\AwesomeGame\CustomScripts\Enemy\Enemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Scene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Applications\AwesomeGame\Scenes\GameScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Applications\AwesomeGame\Scenes\MainMenuScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Applications\AwesomeGame\CustomScripts\GuiStuff\MainMenuController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Applications\AwesomeGame\Scenes\GameOverScene.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Applications\AwesomeGame\CustomScripts\GuiStuff\GameOverController.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Applications\3dTesting\CustomScripts\CylinderTester.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Applications\AwesomeGame\CustomScripts\PlatformManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

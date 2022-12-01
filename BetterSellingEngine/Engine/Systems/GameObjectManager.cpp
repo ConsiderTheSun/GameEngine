@@ -17,10 +17,8 @@ GOM::GameObjectManager() {
 
 GOM::~GameObjectManager() {
 	gomInstance = NULL;
-
-	while (!branches.empty()) {
-		RemoveGameObject(branches.front());
-	}
+	Clear();
+	
 }
 
 GameObject* GOM::Find(std::string objectName) {
@@ -31,6 +29,21 @@ GameObject* GOM::Find(std::string objectName) {
 	}
 	return NULL;
 }
+
+void GOM::Clear() {
+	while (!branches.empty()) {
+		RemoveGameObject(branches.front());
+	}
+}
+
+void GOM::Reset() {
+	Clear();
+	layerCount = 1;
+	layerMap.clear();
+	layerMap.insert({ "default", 0 });
+}
+
+
 
 
 bool GOM::AddGameObject(GameObject* gameObject, GameObject* parent) {

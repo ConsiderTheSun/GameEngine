@@ -33,6 +33,10 @@ public:
 
 	static const glm::vec2 DeltaMouse() { return deltaMouse; };
 	static float DeltaScroll() { return deltaScroll; };
+
+	static void GetMousePos(double& xpos, double& ypos);
+
+	static void Reset();
 private:
 
 	static GameWindow* gameWindow;

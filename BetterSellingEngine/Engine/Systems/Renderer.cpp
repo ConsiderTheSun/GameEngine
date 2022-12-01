@@ -12,7 +12,7 @@ Renderer::~Renderer()
 }
 
 void Renderer::Draw(const Camera* renderCam, GOM* gom) {
-	glClearColor(0.1f, 0.6f, 0.7f, 1.0f);
+	glClearColor(backgroundColor.x, backgroundColor.y, backgroundColor.z, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	
 	for (GOM::Iterator gomItr = gom->begin(), end = gom->end(); gomItr != end; ++gomItr) {
@@ -20,6 +20,8 @@ void Renderer::Draw(const Camera* renderCam, GOM* gom) {
 		// gets the sprite and skips GOs that don't have one
 		Sprite* spriteComponent = gomItr->GetComponent<Sprite>();
 		if (!spriteComponent) continue;
+
+		if (!gomItr->Active()) continue;
 
 		// uses the GOs shader, or the default
 		Shader* currentShader = spriteComponent->GetCustomShader();

@@ -20,7 +20,7 @@ public:
 	void SetGravity(float newG) { gravity = newG; }
 	float GetGravity() { return gravity; }
 
-	void Update(GOM* gom);
+	void Update(GOM* gom, float dt);
 
 	void EvaluateCollisions(GOM* gom);
 
@@ -33,6 +33,8 @@ public:
 
 	void SetCollisionInteraction(int layer1, int layer2, bool interaction);
 	bool LayerInteraction(int layer1, int layer2);
+
+	void Reset();
 private:
 	static Physics* physicsInstance;
 

@@ -8,7 +8,7 @@ void CameraController::Update(float dt) {
 	else if (currentDistance > 20) currentDistance = 20;
 
 	//sets the camera angle
-	float followRotation = followTransform->GetRotation().z;
+	float followRotation = followTransform->GetWorldRotation().z;
 	mainCamera->yaw = -180 * followRotation / 3.14 - 90;
 	mainCamera->pitch -= 0.2 * Input::DeltaMouse().y;
 
@@ -23,6 +23,6 @@ void CameraController::Update(float dt) {
 				  cos(followRotation) * cos(glm::radians(mainCamera->pitch)));
 
 	
-	mainCamera->transform.SetPosition(followTransform->GetPosition() + currentDistance* camPos);
+	mainCamera->transform.SetPosition(followTransform->GetWorldPosition() + currentDistance* camPos);
 
 }

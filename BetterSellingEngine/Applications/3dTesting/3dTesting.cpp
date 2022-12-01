@@ -203,7 +203,6 @@ void ThreeDTesting::LikeStarsInTheSky() {
 
 
 void ThreeDTesting::SpawnCylinderThing() {
-
 	GameObject* cylinderThing = new GameObject("Thing==Friend");
 	cylinderThing->AddComponent<Sprite>();
 
@@ -212,6 +211,9 @@ void ThreeDTesting::SpawnCylinderThing() {
 	thingSprite->SetColor(glm::vec3(0.5, 1, 0.6));
 	//thingSprite->SetMaterial("./assets/47.png");
 
+	PhysicsBody* body = cylinderThing->AddComponent<PhysicsBody>();
+	body->SetCylinderAA();
+
 	Transform* cylT = cylinderThing->GetComponent<Transform>();
 
 	cylT->SetPosition(glm::vec3(3,3,0));
@@ -219,4 +221,28 @@ void ThreeDTesting::SpawnCylinderThing() {
 	
 
 	bse->AddGameObject(cylinderThing);
+
+
+
+
+	GameObject* cylinderThing2 = new GameObject("Thing==Friend 2.0");
+	cylinderThing2->AddComponent<Sprite>();
+
+	thingSprite = cylinderThing2->GetComponent<Sprite>();
+	thingSprite->SetCylinderGeometry(30);
+	thingSprite->SetColor(glm::vec3(1, 0.5, 0.6));
+	//thingSprite->SetMaterial("./assets/47.png");
+
+	body = cylinderThing2->AddComponent<PhysicsBody>();
+	body->SetCylinderAA();
+
+	cylinderThing2->AddComponent<CylinderTester>();
+
+	cylT = cylinderThing2->GetComponent<Transform>();
+
+	cylT->SetPosition(glm::vec3(3, 1, 0));
+
+
+
+	bse->AddGameObject(cylinderThing2);
 }

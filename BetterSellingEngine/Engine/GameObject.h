@@ -24,6 +24,11 @@ public:
 
 	const std::string& GetName() { return name; }
 
+	void Enable() { active = true; }
+	void Disable() { active = false; }
+
+	bool Active() { return active; }
+
 	GameObject* GetParent() { return parent; }
 	GameObject* GetChild(int index);
 	const std::list<GameObject*>& getChildrenList() const { return children; }
@@ -51,6 +56,7 @@ public:
 	inline std::vector<T*> GetAllComponents();
 
 private:
+	bool active = true;
 	GameObject* parent = NULL;
 	std::list<GameObject*> children;
 	std::vector<Component*> componentList;

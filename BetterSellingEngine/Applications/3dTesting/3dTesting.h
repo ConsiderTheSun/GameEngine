@@ -11,6 +11,8 @@
 
 #include "CustomScripts/SunController.h"
 
+#include "CustomScripts/CylinderTester.h"
+
 class ThreeDTesting {
 public:
 	void Setup();

@@ -21,3 +21,5 @@
 #include "Components/Sprite/Sprite.h"
 #include "Components/Sprite/Meshes/TriangleMesh.h"
 #include "Components/Physics/PhysicsBody.h"
+
+#include "Scene.h"

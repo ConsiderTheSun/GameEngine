@@ -6,8 +6,11 @@
 #include "CustomScripts/CameraController.h"
 #include "CustomScripts/GameController.h"
 #include "CustomScripts/EnemyManager.h"
+#include "CustomScripts/PlatformManager.h"
 
 #include "EntityFactory.h"
+
+#include "Scenes/MainMenuScene.h"
 
 class AwesomeGame{
 public:
@@ -17,15 +20,4 @@ private:
 	BetterSellingEngine* bse;
 
 	void CreateWindow();
-
-	void CreateEnvironment();
-
-	GameObject* CreatePlayer();
-
-	void GameControllerSetup();
-
-	void CameraSetup(GameObject* followGO);
-
-	void InputSetup();
-
 };

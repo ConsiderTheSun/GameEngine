@@ -16,14 +16,14 @@ void PhysicsBody::SetMass(float newMass) {
 	inverseMass = 1.0f / newMass;
 }
 
-void PhysicsBody::Integrate(float gravity) {
+void PhysicsBody::Integrate(float dt, float gravity) {
 	if (hasGravity) {
 		force.y -= gravity * mass;
 	}
-	
+
 	acceleration = force * inverseMass;
-	velocity += acceleration;
-	glm::vec3 deltaPosition = velocity;
+	velocity += dt*acceleration;
+	glm::vec3 deltaPosition = dt * velocity;
 	glm::vec3 oldPosition = transformComponent->GetPosition();
 
 	angularAcceleration = angularForce * inverseMass;

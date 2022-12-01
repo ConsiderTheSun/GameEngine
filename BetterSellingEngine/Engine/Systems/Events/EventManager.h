@@ -28,6 +28,13 @@ public:
 
 	void HandleEvents();
 	std::vector<DestroyEvent*>& GetDestroyEvents() { return destroyEventList; }
+	SceneChangeEvent* GetSceneChangeEvent() { 
+		SceneChangeEvent* temp = sceneChangeEvent;
+		if (sceneChangeEvent) sceneChangeEvent = nullptr;
+		return temp;
+	}
+
+	void Reset() { registeredEvents.clear(); }
 private:
 	static EventManager* eventMInstance;
 
@@ -35,5 +42,7 @@ private:
 
 	std::vector<Event*> eventList;
 	std::vector<DestroyEvent*> destroyEventList;
+
+	SceneChangeEvent* sceneChangeEvent = nullptr;
 
 };

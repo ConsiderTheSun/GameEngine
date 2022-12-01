@@ -25,6 +25,22 @@ Camera::Camera(Dimensions d): dimensions(d) {
 	Update();
 }
 
+void Camera::SetDimentions(Dimensions d) {
+	dimensions = d;
+	if (dimensions == Two) {
+		transform.SetPosition(glm::vec3(0, 0, 10));
+	}
+	else {
+		transform.SetPosition(glm::vec3());
+	}
+
+	lookDirection = glm::vec3(0, 0, -1.0f);
+}
+void Camera::Reset() {
+	SetDimentions(Two);
+	transform.SetScale(glm::vec3( 1, 1, 1));
+}
+
 void Camera::Update() {
 	if (dimensions == Three) {
 		lookDirection.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));

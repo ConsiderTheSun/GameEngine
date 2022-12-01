@@ -24,11 +24,34 @@ void BetterSellingEngine::LoadFromFile(std::string fileName) {
 }
 
 void BetterSellingEngine::Start() {
+	if (currentScene) {
+		currentScene->LoadScene();
+	}
+
 	while (!gameWindow.ShouldClose()) {
 		
-		
+		deltaTime = std::chrono::duration<float>(std::chrono::steady_clock::now() - previousFrame).count();
+		previousFrame = std::chrono::steady_clock::now();
 
-		Update();
+		float remainingTime = deltaTime;
+		int loops = 0;
+		float minDelta = 1.0f / 60;
+		while (remainingTime > 0) {
+			
+			FixedUpdate(std::min(remainingTime, minDelta));
+			remainingTime -= 1.0f / 60;
+
+			++loops;
+
+			if (loops > 10) {
+				std::cout << "PROBLEMS PROBLEMS PROBLEMS\n";
+				break;
+			}
+		}
+
+		//FixedUpdate(deltaTime);
+		
+		Update(deltaTime);
 
 		gameWindow.SwapBuffer();
 
@@ -38,26 +61,28 @@ void BetterSellingEngine::Start() {
 	Shutdown();
 }
 
-void BetterSellingEngine::Update() {
+void BetterSellingEngine::Update(float dt) {
 
-	deltaTime = std::chrono::duration<float>(std::chrono::steady_clock::now() - previousFrame).count();
-	previousFrame = std::chrono::steady_clock::now();
-
+	
 	mainCamera->Update();
 
-	Input::Update();
+	Input::Update(); 
 
-	physicsSystem->Update(gomSystem);
 
-	ScriptManagerSystem.Update(gomSystem, deltaTime);
+	ScriptManagerSystem.Update(gomSystem, dt);
 
 	eventManagerSystem->HandleEvents();
 
-	HandleDestroyEvents(eventManagerSystem->GetDestroyEvents());
+	HandleDestroyEvents(eventManagerSystem->GetDestroyEvents()); 
 
-	renderSystem.Draw(mainCamera, gomSystem);
+	renderSystem.Draw(mainCamera, gomSystem); 
+
+	HandleSceneChangeEvent(eventManagerSystem->GetSceneChangeEvent()); 
 }
 
+void BetterSellingEngine::FixedUpdate(float dt) {
+	physicsSystem->Update(gomSystem, dt);
+}
 void BetterSellingEngine::HandleDestroyEvents(std::vector<DestroyEvent*>& eList) {
 	while (eList.size() != 0) {
 		for (int i = 0; i < eList.size(); ++i) {
@@ -122,4 +147,45 @@ BetterSellingEngine::~BetterSellingEngine() {
 	delete(gomSystem);
 	delete(physicsSystem);
 	delete(eventManagerSystem);
+}
+
+
+
+void BetterSellingEngine::ChangeScene(Scene* initScene) {
+	SceneChangeEvent* e = new SceneChangeEvent(initScene);
+	EventManager::GetInstance()->AddEvent(e);
+
+}
+
+void BetterSellingEngine::HandleSceneChangeEvent(SceneChangeEvent* e) {
+	if (!e) return;
+	//std::cout << "change!\n";
+	// clears the previous scene
+	gomSystem->Reset();
+	physicsSystem->Reset();
+	renderSystem.Reset();
+	eventManagerSystem->Reset();
+	mainCamera->Reset();
+
+	Input::Reset();
+
+
+	if(currentScene) delete(currentScene);
+	// loads the new scene
+	currentScene = e->newScene;
+	currentScene->LoadScene();
+
+	delete(e);
+}
+
+
+void BetterSellingEngine::LoadNewScene(Scene* newScene) {
+	UnloadScene();
+	delete(currentScene);
+	currentScene = newScene;
+	currentScene->LoadScene();
+}
+
+void BetterSellingEngine::UnloadScene() {
+	gomSystem->Clear();
 }

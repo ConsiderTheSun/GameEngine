@@ -121,7 +121,8 @@ public:
 
 	GameObject* Find(std::string objectName);
 
-	
+	void Reset();
+	void Clear();
 
 private:
 	int LayerToInt(std::string layerName);

@@ -4,6 +4,8 @@
 
 #include <glm/glm/vec3.hpp>
 
+#include "../../Scene.h"
+
 class GameObject;
 class Event {
 public:
@@ -17,6 +19,15 @@ class DestroyEvent : public Event {
 public:
 	DestroyEvent(GameObject* go) : Event(go) {
 		typeName = typeid(*this).name();
+	}
+};
+
+class SceneChangeEvent : public Event {
+public:
+	Scene* newScene;
+	SceneChangeEvent(Scene* scene) : Event(nullptr) { 
+		typeName = typeid(*this).name();
+		newScene = scene; 
 	}
 };
 

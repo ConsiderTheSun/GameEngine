@@ -1,5 +1,5 @@
 #include "CollisionTest.h"
-
+#include <glm/glm/gtx/string_cast.hpp>
 bool CollisionTest::Test(PhysicsBody* body1, PhysicsBody* body2, glm::vec3* normal, float* depth) {
 
 	// checks if layers interact
@@ -50,7 +50,7 @@ bool CollisionTest::Test(PhysicsBody* body1, PhysicsBody* body2, glm::vec3* norm
 
 	// body 1 is CylinderAA
 	if (body1->GetShapeType() == Shape::ShapeType::CylinderAA && body2->GetShapeType() == Shape::ShapeType::CylinderAA) {
-		return CylinderAA_CylinderAA_Test(body1, body2);
+		return CylinderAA_CylinderAA_Test(body1, body2, normal, depth);
 	}
 	if (body1->GetShapeType() == Shape::ShapeType::CylinderAA && body2->GetShapeType() == Shape::ShapeType::Sphere) {
 		return CylinderAA_Sphere_Test(body1, body2);
@@ -437,24 +437,71 @@ bool CollisionTest::OBB_Circle_Test(PhysicsBody* body1, PhysicsBody* body2) {
 }
 
 
-bool CollisionTest::CylinderAA_CylinderAA_Test(PhysicsBody* body1, PhysicsBody* body2) {
+bool CollisionTest::CylinderAA_CylinderAA_Test(PhysicsBody* body1, PhysicsBody* body2, glm::vec3* normal, float* depth) {
 	Transform* t1 = body1->gameObject->GetComponent<Transform>();
 	Transform* t2 = body2->gameObject->GetComponent<Transform>();
 
+	glm::vec3 center1 = t1->GetWorldPosition();
+	glm::vec3 center2 = t2->GetWorldPosition();
+
 	float radius1 = 0.5f * t1->GetWorldScale().x;
 	float radius2 = 0.5f * t2->GetWorldScale().x;
-	glm::vec3 diff = t1->GetPosition() - t2->GetPosition();
 
-	float squareDist = diff.x * diff.x + diff.y * diff.y + diff.z * diff.z;
+	glm::vec3 cylinderAxis = t1->GetRotationMatrix() * glm::vec4(0, 0, 1, 1);
+
+	glm::vec3 diff = center1 - center2;
+
+	// finds the vectors parallel and perpendicular to the cylinder's axis
+	glm::vec3 parallelVec = glm::dot(diff, cylinderAxis) * cylinderAxis;
+	glm::vec3 perpVec = diff - parallelVec;
+
+	float squareDist = glm::dot(perpVec, perpVec);
+	
 	float squareRSum = radius1 + radius2;
 	squareRSum *= squareRSum;
 
 	if (squareDist < squareRSum) {
-		//TODO: check if cylinders intersect on aligned axis
+
+		
+		float height1 = t1->GetWorldScale().z / 2;
+		float height2 = t2->GetWorldScale().z / 2;
+
+		glm::vec3 cylinder1Top = center1 + height1 * cylinderAxis;
+		glm::vec3 cylinder1Bottom = center1 - height1 * cylinderAxis;
+		glm::vec3 cylinder2Top = center2 + height2 * cylinderAxis;
+		glm::vec3 cylinder2Bottom = center2 - height2 * cylinderAxis;
+
+		float max1 = glm::dot(cylinder1Top, cylinderAxis);
+		float max2 = glm::dot(cylinder2Top, cylinderAxis);
+		float min1 = glm::dot(cylinder1Bottom, cylinderAxis);
+		float min2 = glm::dot(cylinder2Bottom, cylinderAxis);
+		if (max1 <= min2 || max2 <= min1)
+			return false;
+
+		// finds what the normal/depth would be along the cylinder axis
+		if (glm::dot(center1, cylinderAxis) > glm::dot(center2, cylinderAxis)) {
+			*normal = -cylinderAxis;
+			*depth = max2 - min1;
+		}
+		else {
+			*normal = cylinderAxis;
+			*depth = max1 - min2;
+		}
+
+		//checks if normal perpendicular to cylinder axis has smaller depth
+
+		float sideDepth = radius1+radius2-sqrt(glm::dot(perpVec, perpVec));
+		if (sideDepth < *depth) {
+			*normal = -glm::normalize(perpVec);
+			*depth = sideDepth;
+		}
+
 		return true;
 	}
 	return false;
 }
+
+
 
 bool CollisionTest::CylinderAA_Sphere_Test(PhysicsBody* body1, PhysicsBody* body2) {
 	Transform* t1 = body1->gameObject->GetComponent<Transform>();
@@ -463,15 +510,85 @@ bool CollisionTest::CylinderAA_Sphere_Test(PhysicsBody* body1, PhysicsBody* body
 	float radius1 = 0.5f * t1->GetWorldScale().x;
 	float radius2 = 0.5f * t2->GetWorldScale().x;
 
-	glm::vec3 diff = t1->GetPosition() - t2->GetPosition();
+	glm::vec3 cylinderAxis = t1->GetRotationMatrix() * glm::vec4(0,0,1,1);
 
+
+	glm::vec3 cylinderTop = t1->GetWorldPosition() + t1->GetWorldScale().z / 2 * cylinderAxis;
+	glm::vec3 cylinderBottom = t1->GetWorldPosition() - t1->GetWorldScale().z / 2 * cylinderAxis;
+	glm::vec3 cylAxisSegment = t1->GetWorldScale().z * cylinderAxis;
+
+	float distanceAlongAxis = 
+		glm::dot(t2->GetWorldPosition()- cylinderBottom, cylAxisSegment) / 
+		glm::dot(cylAxisSegment, cylAxisSegment);
+	
+	glm::vec3 closestPoint = cylinderBottom + distanceAlongAxis * cylAxisSegment;
+
+	glm::vec3 diff = t2->GetWorldPosition() - closestPoint;
 	float squareDist = diff.x * diff.x + diff.y * diff.y + diff.z * diff.z;
-	float squareRSum = radius1 + radius2;
-	squareRSum *= squareRSum;
 
+	float squareRSum;
+	if (distanceAlongAxis < 0 || distanceAlongAxis > 1) {
+
+		glm::vec3 offsetVector;
+		if (distanceAlongAxis < 0) {
+			offsetVector = closestPoint - cylinderBottom;
+		}
+		else if (distanceAlongAxis > 1) {
+			offsetVector = closestPoint - cylinderTop;
+		}
+		float offsetSquared = offsetVector.x * offsetVector.x +
+							  offsetVector.y * offsetVector.y + 
+							  offsetVector.z * offsetVector.z;
+		float rSquared = radius2 * radius2;
+		
+		// tests if they can intersect based on cylinder axis
+		if (rSquared < offsetSquared) {
+			return false;
+		}
+
+		squareRSum = radius1 + glm::sqrt(rSquared - offsetSquared);
+	}
+	else {
+		squareRSum = radius1 + radius2;
+		
+	}
+
+
+	squareRSum *= squareRSum;
 	if (squareDist < squareRSum) {
-		//TODO: check if sphere against z axis of cylinder
 		return true;
 	}
 	return false;
+
 }
+
+
+bool CollisionTest::PointInOBB(glm::vec3 point, PhysicsBody* body) {
+
+	if (!body->gameObject->Active()) return false;
+
+	if (body->GetShapeType() != Shape::ShapeType::OBB) {
+		return false;
+	}
+
+	Transform* t = body->gameObject->GetComponent<Transform>();
+	glm::vec2 sideLength = 0.5f * t->GetWorldScale();
+
+	Corners2D corners(t->GetWorldPosition(), t->GetRotationMatrix(), sideLength);
+
+	glm::vec3 axisX = glm::normalize(corners.TopLeft - corners.TopRight);
+	glm::vec3 axisY = glm::normalize(corners.TopLeft - corners.BottomLeft);
+
+
+	for (glm::vec3 axis : { axisX, axisY }) {
+		float min = 0.0;
+		float max = 0.0;
+		GetMinMax(corners, axis, min, max);
+
+		float pointProj = glm::dot(point, axis);
+		if (max <= pointProj || pointProj <= min)
+			return false;
+	}
+	return true;
+}
+

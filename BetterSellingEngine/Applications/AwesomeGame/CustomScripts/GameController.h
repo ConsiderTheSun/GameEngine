@@ -12,4 +12,6 @@ public:
 	GameController(GameObject* go) : Script(go) {}
 
 	void Update(float dt) override;
+
+
 };

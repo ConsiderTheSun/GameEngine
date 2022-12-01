@@ -66,7 +66,7 @@ void Input::Update() {
 void Input::AddTracking(int count ...) {
 	va_list list;
 	va_start(list, count);
-
+	
 	for (int i = 0; i < count; i++) {
 		int key = va_arg(list, int);
 
@@ -87,4 +87,28 @@ void Input::LockMouse() {
 
 	glfwGetCursorPos(gameWindow->window, &xPos, &yPos);
 	mousePosition = glm::vec2(xPos, yPos);
+}
+
+void Input::GetMousePos(double& xpos, double& ypos) {
+	int width, height;
+
+	// gets data on mouse position and window size
+	glfwGetCursorPos(gameWindow->window, &xpos, &ypos);
+	glfwGetWindowSize(gameWindow->window, &width, &height);
+
+	// calculates the position
+	xpos /= width;
+	ypos /= height;
+
+	// flips y axis
+	ypos = -ypos + 1;
+
+	// shifts to be from -1 to 1 when on screen
+	xpos *= 2; ypos *= 2;
+	--xpos; --ypos;
+}
+
+void Input::Reset() {
+	buttonTracker.clear();
+	UnlockMouse();
 }

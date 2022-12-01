@@ -3,11 +3,11 @@
 #include "AwesomeGame/AwesomeGame.h"
 
 int main() {
-	std::string d = "2t";
+	std::string d = "";
 	std::cout << "Choose Game:\n";
+	std::cout << "1: This Is A Game (tm)\n";
 	std::cout << "2: 2dTesting\n";
 	std::cout << "3: 3dTesting \n";
-	std::cout << "a for AwesomeGame (tm)\n";
 	std::cout << "Enter: ";
 	
 
@@ -22,7 +22,7 @@ int main() {
 		instance.Setup();
 		instance.Start();
 	}
-	else if (d == "a") {
+	else if (d == "1") {
 		AwesomeGame instance;
 		instance.Setup();
 		instance.Start();

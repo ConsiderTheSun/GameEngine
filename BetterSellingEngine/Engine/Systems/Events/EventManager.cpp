@@ -13,10 +13,17 @@ void EventManager::AddEvent(Event* e) {
 		DestroyEvent* DestroyE = dynamic_cast<DestroyEvent*>(e);
 		if (DestroyE) {
 			destroyEventList.push_back(DestroyE);
+			return;
 		}
-		else {
-			eventList.push_back(e);
+		
+		SceneChangeEvent* scE = dynamic_cast<SceneChangeEvent*>(e);
+		if (scE) {
+			if (sceneChangeEvent) delete sceneChangeEvent;
+			sceneChangeEvent = scE;
+			return;
 		}
+		eventList.push_back(e);
+		
 
 	}
 }

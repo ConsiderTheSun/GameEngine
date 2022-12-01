@@ -30,6 +30,11 @@ public:
 	void SetLightPosition(glm::vec3 newPos) { renderSystem.SetLightPosition(newPos); }
 	glm::vec3 GetLightPosition() { return renderSystem.GetLightPosition(); }
 
+	void SetInitialScene(Scene* initScene) { currentScene = initScene; }
+	void ChangeScene(Scene* initScene);
+	
+	void SetBackgroundColor(glm::vec3 color) { renderSystem.SetBackgroundColor(color); }
+
 	template <typename T,
 		typename = std::enable_if_t<std::is_base_of_v<Event, T>>>
 	inline void RegisterEvent() {
@@ -57,11 +62,17 @@ private:
 	std::chrono::steady_clock::time_point previousFrame;
 	float deltaTime = 0;
 
-	void Update();
+	Scene* currentScene = nullptr;
+
+	void Update(float dt);
+	void FixedUpdate(float dt);
 
 	void Shutdown();
 
 
 	void HandleDestroyEvents(std::vector<DestroyEvent*>& eList);
 
+	void HandleSceneChangeEvent(SceneChangeEvent* e);
+	void LoadNewScene(Scene* newScene);
+	void UnloadScene();
 };

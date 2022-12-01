@@ -20,7 +20,11 @@ public:
 
 	Camera(Dimensions d = Two);
 
+	void SetDimentions(Dimensions d);
+	void Reset();
+
 	void Update();
+
 	const glm::vec3 GetLook() { return lookDirection; }
 	const glm::mat4* GetView() const;
 	const glm::mat4* GetProjection() const;

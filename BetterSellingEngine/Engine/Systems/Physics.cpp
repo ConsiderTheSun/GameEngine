@@ -11,13 +11,13 @@ Physics::Physics() {
 	collisionTable.push_back(std::vector<bool>(1, true));
 }
 
-void Physics::Update(GOM* gom) {
+void Physics::Update(GOM* gom, float dt) {
 	for (GOM::Iterator gomItr = gom->begin(), end = gom->end(); gomItr != end; ++gomItr) {
 		// gets the body and skips GOs that don't have one
 		PhysicsBody* bodyComponent = gomItr->GetComponent<PhysicsBody>();
 		if (!bodyComponent) continue;
 
-		bodyComponent->Integrate(gravity);
+		bodyComponent->Integrate(dt,gravity);
 	}
 
 	
@@ -145,5 +145,13 @@ bool Physics::LayerInteraction(int layer1, int layer2) {
 
 void Physics::ExpandCollisionTable(int newSize) {
 	collisionTable.push_back(std::vector<bool>(newSize, true));
+}
+
+void Physics::Reset() {
+	gravity = 0;
+	collisionTable.clear();
+	collisionTable.push_back(std::vector<bool>(1, true));
+
+	contact.Reset();
 }
 

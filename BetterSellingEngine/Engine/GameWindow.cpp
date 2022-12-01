@@ -42,7 +42,7 @@ void GameWindow::Init(std::string title, int width, int height) {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	window = glfwCreateWindow(width, height, "Hi, How are you?", NULL, NULL);
+	window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
 	if (!window){
 		std::cerr << "Failed to create GLFW window" << std::endl;
 		glfwTerminate();

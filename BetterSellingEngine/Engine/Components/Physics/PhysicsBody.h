@@ -30,7 +30,7 @@ public:
 
 	void SetHasGravity(bool newHas) { hasGravity = newHas; }
 
-	void Integrate(float gravity);
+	void Integrate(float dt, float gravity);
 
 
 	Shape::ShapeType GetShapeType() { return shape->GetShapeType(); }
