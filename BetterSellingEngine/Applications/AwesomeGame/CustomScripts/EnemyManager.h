@@ -1,5 +1,5 @@
 #pragma once
-#include <queue>
+#include <list>
 #include <glm/glm/vec3.hpp>
 
 #include "../../Engine/BetterSellingEngine.h"
@@ -22,13 +22,15 @@ public:
 	static void SetPlayerGameObject(GameObject* go) { playerGO = go; }
 	static void SetPlatformManager(PlatformManager* pm) { platformManager = pm; }
 
+	static void RemoveEnemy(GameObject* enemyGO);
+
 private:
-	const float SPAWN_RATE = 2;
-	const int MAX_ENEMIES = 30;
+	const float SPAWN_RATE = 1;
+	const int MAX_ENEMIES = 20;
 
 	float spawnCountdown = SPAWN_RATE;
 	void SpawnFollowEnemy();
 	void ClampEnemyCount();
-	std::queue<GameObject*> enemyList;
+	static std::list<GameObject*> enemyList;
 
 };

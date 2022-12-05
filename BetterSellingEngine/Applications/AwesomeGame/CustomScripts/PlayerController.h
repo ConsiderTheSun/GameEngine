@@ -9,6 +9,9 @@
 
 #include "../Scenes/GameOverScene.h"
 
+
+class EnemyManager;
+
 class PlayerController : public Script {
 public:
 	const float MASS = 2;
@@ -37,10 +40,12 @@ public:
 		if(currentPlatform) return currentPlatform; 
 		return previousPlatform;
 	}
+
 private:
 
 	static GameObject* currentPlatform;
 	static GameObject* previousPlatform;
+
 
 	const glm::vec3 DAMAGE_COLOR = glm::vec3(1, 0, 0);
 

@@ -6,6 +6,9 @@
 
 GameObject* EnemyManager::playerGO = nullptr;
 PlatformManager* EnemyManager::platformManager = nullptr;
+
+std::list<GameObject*> EnemyManager::enemyList = std::list<GameObject*>();
+
 void EnemyManager::Update(float dt) {
 	spawnCountdown -= dt;
 
@@ -13,10 +16,12 @@ void EnemyManager::Update(float dt) {
 		spawnCountdown = SPAWN_RATE;
 		SpawnFollowEnemy();
 	}
-	if (Input::KeyDown(GLFW_MOUSE_BUTTON_RIGHT) == Input::State::Enter) {
-		//for(int i=0;i<10;++i)
-		SpawnFollowEnemy();
-	}
+	
+	/*if (Input::KeyDown(GLFW_MOUSE_BUTTON_RIGHT) == Input::State::Enter) {
+		for(int i=0;i<10;++i)
+			SpawnFollowEnemy();
+	}*/
+	
 }
 
 void EnemyManager::SpawnFollowEnemy() {
@@ -42,21 +47,29 @@ void EnemyManager::SpawnFollowEnemy() {
 			illegalPosition = illegalPosition || !platformManager->noIntersections(platform, enemyPos, 0.5f);
 		} while (illegalPosition);
 
-		//if spawned inside of another platform, diplace it
+		//if spawned inside of another platform, displace it
+		GameObject* enemyGO;
+		if (enemyList.size() < MAX_ENEMIES) {
+			enemyGO = EntityFactory::MakeI("Enemy", "Enemy Layer", enemyPos, glm::vec3(0.0, 1, 0.0));
 
-		GameObject* enemyGO = EntityFactory::MakeI("Enemy", "Enemy Layer", enemyPos, glm::vec3(0.0, 1, 0.0));
+			PhysicsBody* entityB = enemyGO->GetChild(0)->AddComponent<PhysicsBody>();
+			enemyGO->GetChild(0)->SetLayer("Enemy Layer");
+			entityB->SetSphere();
+			entityB->SetHasGravity(false);
 
-		std::cout << "head? " << enemyGO->GetChild(0)->GetName() << std::endl;
-		PhysicsBody* entityB = enemyGO->GetChild(0)->AddComponent<PhysicsBody>();
-		enemyGO->GetChild(0)->SetLayer("Enemy Layer");
-		entityB->SetSphere();
-		entityB->SetHasGravity(false);
+			Follower* follower = enemyGO->AddComponent<Follower>();
+			follower->SetFollow(playerGO);
+			follower->SetPlatform(platform);
+		}
+		else {
+			enemyGO = enemyList.front();
+			enemyList.pop_front();
 
-		Follower* follower = enemyGO->AddComponent<Follower>();
-		follower->SetFollow(playerGO);
-		follower->SetPlatform(platform);
-
-		enemyList.push(enemyGO);
+			Follower* follower = enemyGO->GetComponent<Follower>();
+			follower->SetPlatform(platform);
+			enemyGO->transform->SetPosition(enemyPos);
+		}
+		enemyList.push_back(enemyGO);
 	}
 	ClampEnemyCount();
 }
@@ -65,8 +78,24 @@ void EnemyManager::SpawnFollowEnemy() {
 void EnemyManager::ClampEnemyCount() {
 	while (enemyList.size() > MAX_ENEMIES) {
 		GameObject* oldestEnemy = enemyList.front();
-		enemyList.pop();
+		enemyList.pop_front();
+
+		//std::cout << "oldest: " << oldestEnemy->GetName() << std::endl;
 
 		GameObject::Destroy(oldestEnemy);
+		//std::cout << "sent destroy" << std::endl;
 	}
+}
+
+
+void EnemyManager::RemoveEnemy(GameObject* enemyGO) {
+	std::list<GameObject*>::iterator eItr = enemyList.begin();
+	for (; eItr != enemyList.end(); ++eItr) {
+		if (*eItr == enemyGO) {
+			enemyList.erase(eItr);
+			GameObject::Destroy(enemyGO);
+			return;
+		}
+	}
+	
 }

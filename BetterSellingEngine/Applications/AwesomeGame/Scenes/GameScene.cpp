@@ -160,9 +160,9 @@ void GameScene::CreatePlayer() {
 void GameScene::GameControllerSetup() {
 	GameObject* scriptyGO = new GameObject("Script Container");
 	scriptyGO->AddComponent<GameController>();
-	scriptyGO->AddComponent<EnemyManager>();
+	EnemyManager* em = scriptyGO->AddComponent<EnemyManager>();
 	bse->AddGameObject(scriptyGO);
-
+	
 	/*GameObject* enemyManager = new GameObject("Enemy Manager");
 	bse->AddGameObject(enemyManager);*/
 }

@@ -159,7 +159,6 @@ void BetterSellingEngine::ChangeScene(Scene* initScene) {
 
 void BetterSellingEngine::HandleSceneChangeEvent(SceneChangeEvent* e) {
 	if (!e) return;
-	//std::cout << "change!\n";
 	// clears the previous scene
 	gomSystem->Reset();
 	physicsSystem->Reset();

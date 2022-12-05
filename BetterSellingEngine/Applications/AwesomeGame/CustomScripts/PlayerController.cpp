@@ -2,6 +2,9 @@
 
 #include <glm/glm/gtx/string_cast.hpp>
 
+
+//#include "EnemyManager.h"
+
 GameObject* PlayerController::currentPlatform = nullptr;
 GameObject* PlayerController::previousPlatform = nullptr;
 
@@ -79,7 +82,7 @@ void PlayerController::Move(float dt) {
 
 	if (jumpCount && !falling && deltaPos.y <= 0) {
 		falling = true;
-		std::cout << "zenith\n";
+		//std::cout << "zenith\n";
 	}
 
 	if (falling) {
@@ -150,20 +153,21 @@ void PlayerController::OnCollisionEnter(CollisionEvent* e) {
 
 	// if the player is hit, take damage and destroy the enemy
 	if (e->collisionObject->GetLayerName() == "Enemy Layer") {
-		GameObject::Destroy(e->collisionObject);
+		if (!e->collisionObject->GetParent()) {
+			EnemyManager::RemoveEnemy(e->collisionObject);
+		}
+		else {
+			GameObject::Destroy(e->collisionObject);
+		}
 		for (GameObject* root = e->collisionObject; root->GetParent();) {
 			root = root->GetParent();
-			GameObject::Destroy(root);
+			EnemyManager::RemoveEnemy(root);
 		}
 		TakeDamage();
 	}
 	else if (e->collisionObject->GetLayerName() == "Ground Layer") {
 		
 		if (1 - glm::dot(e->normal, glm::vec3(0, -1, 0)) < 0.0001f) {
-			std::cout << "landed!\n";
-			std::cout << "with normal: " << glm::to_string(e->normal) << std::endl;
-			std::cout << "air time: " << std::chrono::duration<float>(std::chrono::steady_clock::now() - tempCounter).count() << std::endl;
-
 			falling = false;
 			jumpCount = 0;
 			currentPlatform = e->collisionObject;
@@ -202,7 +206,7 @@ void PlayerController::OnCollisionExit(CollisionEvent* e) {
 
 	if (e->collisionObject->GetLayerName() == "Ground Layer") {
 		if (currentPlatform != e->collisionObject) return;
-		std::cout << "take off!\n";
+		//std::cout << "take off!\n";
 		tempCounter = std::chrono::steady_clock::now();
 		falling = false;
 		if(!jumpCount) jumpCount=1;

@@ -141,6 +141,7 @@
     <ClCompile Include="Applications\AwesomeGame\AwesomeGame.cpp" />
     <ClCompile Include="Applications\AwesomeGame\CustomScripts\CameraController.cpp" />
     <ClCompile Include="Applications\AwesomeGame\CustomScripts\EnemyManager.cpp" />
+    <ClCompile Include="Applications\AwesomeGame\CustomScripts\Enemy\Enemy.cpp" />
     <ClCompile Include="Applications\AwesomeGame\CustomScripts\Enemy\Follower.cpp" />
     <ClCompile Include="Applications\AwesomeGame\CustomScripts\GameController.cpp" />
     <ClCompile Include="Applications\AwesomeGame\CustomScripts\GuiStuff\GameOverController.cpp" />
