@@ -6,6 +6,8 @@
 #include <iostream>
 #include <chrono>
 
+#include "Systems/Logger.h"
+
 #include "GameWindow.h"
 #include "Camera.h"
 #include "Systems/Renderer.h"

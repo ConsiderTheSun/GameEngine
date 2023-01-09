@@ -1,14 +1,21 @@
 #pragma once
 
 #include <string>
+
 class Logger
 {
 public:
-	Logger();
-	~Logger();
+	enum LogMode{Silent, ErrorOnly, ErrorWarning, All};
+	Logger(){};
+	
+	static void SetMode(LogMode newMode) { currentMode = newMode; }
 
-	void Initialize(std::string _outFileName);
+	static void Info(std::string message);
+	static void Warning(std::string message);
+	static void Error(std::string message);
 private:
-	std::string outFileName;
+
+	static LogMode currentMode;
+
 };
 

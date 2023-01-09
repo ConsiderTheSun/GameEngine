@@ -49,6 +49,7 @@ void BetterSellingEngine::Start() {
 			}
 		}
 
+		// I couldn't get this working due to time constraints, good luck Kelsey
 		//FixedUpdate(deltaTime);
 		
 		Update(deltaTime);

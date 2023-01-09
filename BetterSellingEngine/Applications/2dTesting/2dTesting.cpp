@@ -1,6 +1,11 @@
 #include "2dTesting.h"
 
 void TwoDTesting::Setup() {
+
+	Logger::Info("Test");
+	Logger::Warning("Test");
+	Logger::Error("Test");
+
 	bse = BetterSellingEngine::GetInstance();
 
 	bse->Initialize("Hi, How are you?", Camera::Dimensions::Two);
@@ -35,8 +40,6 @@ void TwoDTesting::Setup() {
 	// game objects from file
 	bse->LoadFromFile("./Applications/2dTesting/2dSetup.json");
 
-
-
 	// camera fun
 	std::pair<unsigned int, unsigned int> ar = helloWindow->GetAspectRatio();
 	Camera::MainCamera()->transform.SetScale(glm::vec3(1 * ar.first, 1 * ar.second, 1));
@@ -61,14 +64,17 @@ void TwoDTesting::Setup() {
 }
 
 void TwoDTesting::Start() {
+	Logger::Info("Starting Game");
 	bse->Start();
+	Logger::Info("Closing Game");
 	delete(bse);
 }
 
 
 void TwoDTesting::OneSegy(glm::vec3 position, float mass) {
 	GameObject* segyGO = new GameObject("Segy");
-	std::cout << "Spawning " << segyGO->GetName() << std::endl;
+	Logger::Info("spawning gameObject " + segyGO->GetName());
+
 	segyGO->SetLayer("Segy Layer");
 
 	segyGO->AddComponent<Sprite>();
@@ -100,7 +106,8 @@ void TwoDTesting::SegyFriends() {
 
 	return;
 	GameObject* segyGO2 = new GameObject("Segy2");
-	std::cout << "Spawning " << segyGO2->GetName() << std::endl;
+
+	Logger::Info("spawning gameObject " + segyGO2->GetName());
 
 	segyGO2->SetLayer("Segy Layer");
 
@@ -125,7 +132,9 @@ void TwoDTesting::SegyFriends() {
 
 void TwoDTesting::GlitchyFriends() {
 	GameObject* segyGO = new GameObject("What");
-	std::cout << "Spawning " << segyGO->GetName() << std::endl;
+
+	Logger::Info("spawning gameObject " + segyGO->GetName());
+
 	segyGO->SetLayer("What Layer");
 
 	segyGO->AddComponent<Sprite>();
@@ -149,7 +158,8 @@ void TwoDTesting::GlitchyFriends() {
 void TwoDTesting::GarfTris() {
 	// first oby
 	GameObject* helloGameObject = new GameObject("How, Hi are you?");
-	std::cout << "Spawning " << helloGameObject->GetName() << std::endl;
+
+	Logger::Info("spawning gameObject " + helloGameObject->GetName());
 
 	helloGameObject->AddComponent<Sprite>();
 	Sprite* helloSprite = helloGameObject->GetComponent<Sprite>();
@@ -169,7 +179,7 @@ void TwoDTesting::GarfTris() {
 	bse->AddGameObject(helloGameObject);
 	// first child
 	GameObject* hiGO = new GameObject("Hi");
-	std::cout << "Spawning " << hiGO->GetName() << std::endl;
+	Logger::Info("spawning gameObject " + hiGO->GetName());
 	hiGO->AddComponent<Sprite>();
 
 	Sprite* hiSprite = hiGO->GetComponent<Sprite>();
@@ -184,7 +194,7 @@ void TwoDTesting::GarfTris() {
 
 	// second child
 	GameObject* hiGO2 = new GameObject("Hi2");
-	std::cout << "Spawning " << hiGO2->GetName() << std::endl;
+	Logger::Info("spawning gameObject " + hiGO2->GetName());
 	hiGO2->AddComponent<Sprite>();
 
 	hiSprite = hiGO2->GetComponent<Sprite>();
@@ -199,7 +209,7 @@ void TwoDTesting::GarfTris() {
 
 	// third child
 	GameObject* hiGO3 = new GameObject("Hi3");
-	std::cout << "Spawning " << hiGO3->GetName() << std::endl;
+	Logger::Info("spawning gameObject " + hiGO3->GetName());
 	hiGO3->AddComponent<Sprite>();
 
 	hiSprite = hiGO3->GetComponent<Sprite>();
@@ -214,7 +224,7 @@ void TwoDTesting::GarfTris() {
 
 	// fourth child
 	GameObject* hiGO4 = new GameObject("Hi4");
-	std::cout << "Spawning " << hiGO4->GetName() << std::endl;
+	Logger::Info("spawning gameObject " + hiGO4->GetName());
 	hiGO4->AddComponent<Sprite>();
 
 	hiSprite = hiGO4->GetComponent<Sprite>();
@@ -229,7 +239,7 @@ void TwoDTesting::GarfTris() {
 
 	// fifth child
 	GameObject* hiGO5 = new GameObject("Hi5");
-	std::cout << "Spawning " << hiGO5->GetName() << std::endl;
+	Logger::Info("spawning gameObject " + hiGO5->GetName());
 	hiGO5->AddComponent<Sprite>();
 
 	hiSprite = hiGO5->GetComponent<Sprite>();
@@ -241,15 +251,11 @@ void TwoDTesting::GarfTris() {
 	hiT->SetPosition(glm::vec3(-0.5f, -1.0f, 0));
 
 	bse->AddGameObject(hiGO5, hiGO2);
-
-
-	//bse->RemoveGameObject(hiGO2);
-	//hiGO5->SetParent();
 }
 
 void TwoDTesting::CircleBuddy() {
 	GameObject* lemonGO = new GameObject("LemonOfPink");
-	std::cout << "Spawning " << lemonGO->GetName() << std::endl;
+	Logger::Info("spawning gameObject " + lemonGO->GetName());
 
 	lemonGO->SetLayer("What Layer");
 
@@ -273,7 +279,7 @@ void TwoDTesting::CircleBuddy() {
 void TwoDTesting::SpawnEntities() {
 	// random solid color triangle, just to show I can
 	GameObject* boringSolid = new GameObject("solid");
-	std::cout << "Spawning " << boringSolid->GetName() << std::endl;
+	Logger::Info("spawning gameObject " + boringSolid->GetName());
 	boringSolid->AddComponent<Sprite>();
 
 	Sprite* boringSprite = boringSolid->GetComponent<Sprite>();
@@ -296,10 +302,10 @@ void TwoDTesting::SpawnEntities() {
 	// sad
 
 	GameObject* sadGO = new GameObject("Sad");
-	std::cout << "Spawning " << sadGO->GetName() << std::endl;
+	Logger::Info("spawning gameObject " + sadGO->GetName());
 
 	sadGO->SetLayer("Sad Layer");
-	std::cout << "Sad Layer: " << sadGO->GetLayer() << std::endl;
+	Logger::Info("SadLayer is " + std::to_string(sadGO->GetLayer()));
 
 	sadGO->AddComponent<Sprite>();
 
@@ -319,10 +325,5 @@ void TwoDTesting::SpawnEntities() {
 	sadB->SetOBB();
 
 	sadGO->AddComponent<WhenSadCollides2D>();
-	//sadGO->AddComponent<PhysicsPlay>();
 	bse->AddGameObject(sadGO);
-
-	std::cout << "PhyPl: " << typeid(PhysicsPlay).name() << std::endl;
-
-	
 }
